@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Lbj-fX-slU">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Player View Controller-->
+        <scene sceneID="GeS-4h-Cc5">
+            <objects>
+                <viewController storyboardIdentifier="PlayerViewController" id="Lbj-fX-slU" customClass="PlayerViewController" customModule="Adidas_Hackathon_Madrid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WC0-gt-tG1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T86-93-KPW">
+                                <rect key="frame" x="166" y="323.5" width="44" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GM6-MU-VFy">
+                                <rect key="frame" x="161.5" y="364" width="53" height="30"/>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="reloadSteps" destination="Lbj-fX-slU" eventType="touchUpInside" id="gY5-Ot-hRN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="T86-93-KPW" firstAttribute="centerX" secondItem="WC0-gt-tG1" secondAttribute="centerX" id="0i4-5X-UVD"/>
+                            <constraint firstItem="T86-93-KPW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ti8-T6-eQk" secondAttribute="leading" constant="10" id="72g-c8-mZk"/>
+                            <constraint firstItem="ti8-T6-eQk" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GM6-MU-VFy" secondAttribute="trailing" constant="10" id="9vx-DT-303"/>
+                            <constraint firstItem="GM6-MU-VFy" firstAttribute="top" secondItem="T86-93-KPW" secondAttribute="bottom" constant="20" id="FzP-9c-YkL"/>
+                            <constraint firstItem="T86-93-KPW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ti8-T6-eQk" secondAttribute="top" constant="10" id="HBx-4X-kGp"/>
+                            <constraint firstItem="ti8-T6-eQk" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T86-93-KPW" secondAttribute="trailing" constant="10" id="PTn-PQ-Hia"/>
+                            <constraint firstItem="GM6-MU-VFy" firstAttribute="centerX" secondItem="T86-93-KPW" secondAttribute="centerX" id="WGi-5z-Ik4"/>
+                            <constraint firstItem="ti8-T6-eQk" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="T86-93-KPW" secondAttribute="bottom" constant="10" id="aBF-RJ-fSI"/>
+                            <constraint firstItem="T86-93-KPW" firstAttribute="centerY" secondItem="WC0-gt-tG1" secondAttribute="centerY" id="cIo-Iq-BYl"/>
+                            <constraint firstItem="GM6-MU-VFy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ti8-T6-eQk" secondAttribute="leading" constant="10" id="yvy-dW-g0A"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ti8-T6-eQk"/>
+                    </view>
+                    <connections>
+                        <outlet property="stepsLabel" destination="T86-93-KPW" id="gFP-RS-xzM"/>
+                        <outlet property="view" destination="WC0-gt-tG1" id="EzJ-YH-Z04"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f5l-95-6MP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="827" y="15"/>
+        </scene>
+    </scenes>
+</document>

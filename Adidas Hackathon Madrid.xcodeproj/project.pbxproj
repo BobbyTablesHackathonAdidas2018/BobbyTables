@@ -7,25 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		131492C020B98117000EE678 /* UIApplication+mainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131492BF20B98117000EE678 /* UIApplication+mainWindow.swift */; };
+		131492C420B98624000EE678 /* PlayerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 131492C320B98624000EE678 /* PlayerViewController.storyboard */; };
+		1358D3CD20B9645400E72DFD /* HealthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1358D3CC20B9645400E72DFD /* HealthModel.swift */; };
+		1386B42720B96B1700F56388 /* HealthModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386B42620B96B1700F56388 /* HealthModelError.swift */; };
+		1386B42920B9772B00F56388 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386B42820B9772B00F56388 /* PlayerViewController.swift */; };
 		13BDF0C520B95C7B0013017F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDF0C420B95C7B0013017F /* AppDelegate.swift */; };
-		13BDF0C720B95C7B0013017F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 13BDF0C620B95C7B0013017F /* art.scnassets */; };
-		13BDF0C920B95C7B0013017F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDF0C820B95C7B0013017F /* ViewController.swift */; };
+		13BDF0C920B95C7B0013017F /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BDF0C820B95C7B0013017F /* EntryViewController.swift */; };
 		13BDF0CC20B95C7B0013017F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BDF0CA20B95C7B0013017F /* Main.storyboard */; };
 		13BDF0CE20B95C7C0013017F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13BDF0CD20B95C7C0013017F /* Assets.xcassets */; };
 		13BDF0D120B95C7C0013017F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BDF0CF20B95C7C0013017F /* LaunchScreen.storyboard */; };
+		13BDF0DA20B960B40013017F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13BDF0D920B960B40013017F /* HealthKit.framework */; };
 		E91FEB4A266ED6980403E5DC /* Pods_Adidas_Hackathon_Madrid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AA8DE7377E07E91DBE536C /* Pods_Adidas_Hackathon_Madrid.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0CDA5FAD224EB40230D08923 /* Pods-Adidas Hackathon Madrid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adidas Hackathon Madrid.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Adidas Hackathon Madrid/Pods-Adidas Hackathon Madrid.debug.xcconfig"; sourceTree = "<group>"; };
+		131492BF20B98117000EE678 /* UIApplication+mainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+mainWindow.swift"; sourceTree = "<group>"; };
+		131492C320B98624000EE678 /* PlayerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerViewController.storyboard; sourceTree = "<group>"; };
+		1358D3CC20B9645400E72DFD /* HealthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthModel.swift; sourceTree = "<group>"; };
+		1386B42620B96B1700F56388 /* HealthModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthModelError.swift; sourceTree = "<group>"; };
+		1386B42820B9772B00F56388 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		13BDF0C120B95C7B0013017F /* Adidas Hackathon Madrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Adidas Hackathon Madrid.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13BDF0C420B95C7B0013017F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		13BDF0C620B95C7B0013017F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		13BDF0C820B95C7B0013017F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		13BDF0C820B95C7B0013017F /* EntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
 		13BDF0CB20B95C7B0013017F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		13BDF0CD20B95C7C0013017F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13BDF0D020B95C7C0013017F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13BDF0D220B95C7C0013017F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13BDF0D820B960B30013017F /* Adidas Hackathon Madrid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Adidas Hackathon Madrid.entitlements"; sourceTree = "<group>"; };
+		13BDF0D920B960B40013017F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		45AA8DE7377E07E91DBE536C /* Pods_Adidas_Hackathon_Madrid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adidas_Hackathon_Madrid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32FE4ABB80EDAF00E4AAC98 /* Pods-Adidas Hackathon Madrid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adidas Hackathon Madrid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Adidas Hackathon Madrid/Pods-Adidas Hackathon Madrid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -36,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E91FEB4A266ED6980403E5DC /* Pods_Adidas_Hackathon_Madrid.framework in Frameworks */,
+				13BDF0DA20B960B40013017F /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +61,40 @@
 				A32FE4ABB80EDAF00E4AAC98 /* Pods-Adidas Hackathon Madrid.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		131492C520B98627000EE678 /* PlayerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1386B42820B9772B00F56388 /* PlayerViewController.swift */,
+				131492C320B98624000EE678 /* PlayerViewController.storyboard */,
+			);
+			path = PlayerViewController;
+			sourceTree = "<group>";
+		};
+		131492C620B98644000EE678 /* EntryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13BDF0C820B95C7B0013017F /* EntryViewController.swift */,
+			);
+			path = EntryViewController;
+			sourceTree = "<group>";
+		};
+		131492C720B98652000EE678 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				131492BF20B98117000EE678 /* UIApplication+mainWindow.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		131492C820B9865C000EE678 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1358D3CC20B9645400E72DFD /* HealthModel.swift */,
+				1386B42620B96B1700F56388 /* HealthModelError.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		13BDF0B820B95C7B0013017F = {
@@ -72,9 +118,12 @@
 		13BDF0C320B95C7B0013017F /* Adidas Hackathon Madrid */ = {
 			isa = PBXGroup;
 			children = (
+				131492C820B9865C000EE678 /* Models */,
+				131492C720B98652000EE678 /* Extensions */,
+				131492C620B98644000EE678 /* EntryViewController */,
+				131492C520B98627000EE678 /* PlayerViewController */,
+				13BDF0D820B960B30013017F /* Adidas Hackathon Madrid.entitlements */,
 				13BDF0C420B95C7B0013017F /* AppDelegate.swift */,
-				13BDF0C620B95C7B0013017F /* art.scnassets */,
-				13BDF0C820B95C7B0013017F /* ViewController.swift */,
 				13BDF0CA20B95C7B0013017F /* Main.storyboard */,
 				13BDF0CD20B95C7C0013017F /* Assets.xcassets */,
 				13BDF0CF20B95C7C0013017F /* LaunchScreen.storyboard */,
@@ -86,6 +135,7 @@
 		D48A0ED6FEF167B7E2078348 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13BDF0D920B960B40013017F /* HealthKit.framework */,
 				45AA8DE7377E07E91DBE536C /* Pods_Adidas_Hackathon_Madrid.framework */,
 			);
 			name = Frameworks;
@@ -102,7 +152,7 @@
 				13BDF0BD20B95C7B0013017F /* Sources */,
 				13BDF0BE20B95C7B0013017F /* Frameworks */,
 				13BDF0BF20B95C7B0013017F /* Resources */,
-				E3F663156E56FFA1F30F1FCD /* [CP] Embed Pods Frameworks */,
+				95C28909B65BC3F8F7401FE7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +175,11 @@
 				TargetAttributes = {
 					13BDF0C020B95C7B0013017F = {
 						CreatedOnToolsVersion = 9.3.1;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -151,9 +206,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13BDF0C720B95C7B0013017F /* art.scnassets in Resources */,
 				13BDF0D120B95C7C0013017F /* LaunchScreen.storyboard in Resources */,
 				13BDF0CE20B95C7C0013017F /* Assets.xcassets in Resources */,
+				131492C420B98624000EE678 /* PlayerViewController.storyboard in Resources */,
 				13BDF0CC20B95C7B0013017F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,18 +234,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E3F663156E56FFA1F30F1FCD /* [CP] Embed Pods Frameworks */ = {
+		95C28909B65BC3F8F7401FE7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Adidas Hackathon Madrid/Pods-Adidas Hackathon Madrid-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ARCL/ARCL.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Reusable/Reusable.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ARCL.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reusable.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -204,8 +261,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13BDF0C920B95C7B0013017F /* ViewController.swift in Sources */,
+				13BDF0C920B95C7B0013017F /* EntryViewController.swift in Sources */,
+				1358D3CD20B9645400E72DFD /* HealthModel.swift in Sources */,
+				1386B42720B96B1700F56388 /* HealthModelError.swift in Sources */,
 				13BDF0C520B95C7B0013017F /* AppDelegate.swift in Sources */,
+				1386B42920B9772B00F56388 /* PlayerViewController.swift in Sources */,
+				131492C020B98117000EE678 /* UIApplication+mainWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +411,7 @@
 			baseConfigurationReference = 0CDA5FAD224EB40230D08923 /* Pods-Adidas Hackathon Madrid.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Adidas Hackathon Madrid/Adidas Hackathon Madrid.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Z25DT3NGV;
 				INFOPLIST_FILE = "Adidas Hackathon Madrid/Info.plist";
@@ -369,6 +431,7 @@
 			baseConfigurationReference = A32FE4ABB80EDAF00E4AAC98 /* Pods-Adidas Hackathon Madrid.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Adidas Hackathon Madrid/Adidas Hackathon Madrid.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Z25DT3NGV;
 				INFOPLIST_FILE = "Adidas Hackathon Madrid/Info.plist";

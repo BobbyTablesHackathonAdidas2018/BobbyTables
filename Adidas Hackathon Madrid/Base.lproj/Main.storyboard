@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A278a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JTD-J1-YZM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tXr-a1-R10">
+        <!--Entry View Controller-->
+        <scene sceneID="mbf-Ls-mHl">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                <viewController id="JTD-J1-YZM" customClass="EntryViewController" customModule="Adidas_Hackathon_Madrid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HUg-kn-jyg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ask for permissions screen..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQH-y4-7TC">
+                                <rect key="frame" x="77.5" y="323.5" width="220.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="iQH-y4-7TC" firstAttribute="centerY" secondItem="HUg-kn-jyg" secondAttribute="centerY" id="97v-u5-kg5"/>
+                            <constraint firstItem="iun-ac-Snt" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iQH-y4-7TC" secondAttribute="trailing" constant="10" id="B0a-eG-Nwj"/>
+                            <constraint firstItem="iQH-y4-7TC" firstAttribute="centerX" secondItem="HUg-kn-jyg" secondAttribute="centerX" id="EMZ-om-L2u"/>
+                            <constraint firstItem="iun-ac-Snt" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="iQH-y4-7TC" secondAttribute="bottom" constant="10" id="YTn-9K-iMr"/>
+                            <constraint firstItem="iQH-y4-7TC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iun-ac-Snt" secondAttribute="top" constant="10" id="uQB-ii-IYq"/>
+                            <constraint firstItem="iQH-y4-7TC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iun-ac-Snt" secondAttribute="leading" constant="10" id="wSq-Pe-cDe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iun-ac-Snt"/>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="view" destination="HUg-kn-jyg" id="bCr-vz-Uzz"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gcC-y4-CCK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="167" y="15"/>
         </scene>
     </scenes>
 </document>
