@@ -23,20 +23,16 @@ async function main () {
 app.use(cookieParser())
 
 
-app.use(bodyParser.json)
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('Not Found')
-  err.status = 404
-  res.redirect('/')
-})
+const router = express.Router()
 
-app.get('/nextSong', async function (req, res, next) {
+router.get('/nextSong', async function (req, res, next) {
   const bpm = req.query.bpm
   const song = req.query.song
   const artist = req.query.artist
+  console.log(bpm, song, artist)
   try {
     const track = await bpmService.getNextSong(bpm, song + ' ' + artist)
     res.json(track)
@@ -45,9 +41,20 @@ app.get('/nextSong', async function (req, res, next) {
     res.sendStatus(500)
   }
 })
+app.use('/', router)
 
+app.use('', router)
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  console.log('not found')
+  var err = new Error('Not Found\n')
+  err.status = 404
+  res.redirect('/')
+})
 
 app.use(function (err, req, res, next) {
+  console.error('error', err)
   res.status(err.status || 500)
     .send({
       message: 'Error'

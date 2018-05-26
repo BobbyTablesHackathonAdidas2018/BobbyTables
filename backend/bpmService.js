@@ -3,6 +3,10 @@ const puppeteer = require('puppeteer')
 // getNextSong(100, 'Metallica')
 module.exports = {getNextSong}
 async function getNextSong (bpm, seedSong) {
+  console.log('Searching for', bpm, seedSong)
+  if (!bpm || !seedSong) {
+    return Promise.reject(new Error('Missing param'))
+  }
   let returnResolve, returnReject
   const returnPromise = new Promise(function (resolve, reject) {
     returnResolve = resolve
