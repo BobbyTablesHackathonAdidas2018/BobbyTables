@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
             try self.player.start(withClientId: self.auth.clientID)
         } catch (let e) {
           print("There was a problem starting the Spotify SDK: %@", e)
-        
         }
 
         OperationQueue.main.addOperation {
@@ -64,6 +63,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
         self.player.login(withAccessToken: self.auth.session.accessToken)
     
     }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        // If the incoming url is what we expect we handle it
+        if (self.auth.canHandle(url)) {
+            // Close the authentication window
+            self.authViewController.presentingViewController?.dismiss(animated: true, completion: nil)
+            self.authViewController = nil;
+            // Parse the incoming url to a session object
+            self.auth.handleAuthCallback(withTriggeredAuthURL: url) { (optionalError, optionalSession) in
+                if let session = optionalSession {
+                    // login to the player
+                    self.player.login(withAccessToken:session.accessToken)
+                }
+            }
+            return true
+        }
+        return false
+    }
+
+    func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
+        self.player.playSpotifyURI("spotify:track:58s6EuEYJdlb0kO7awm3Vp", startingWith: 0, startingWithPosition: 0) { (optionalError) in
+            if (optionalError != nil) {
+                print("*** failed to play: %@")
+                return
+            }
+        }
+    }
+
+
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
