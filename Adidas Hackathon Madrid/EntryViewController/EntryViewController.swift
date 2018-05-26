@@ -14,14 +14,9 @@ class EntryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let mainWindow = UIApplication.shared.mainWindow else {
-            fatalError("App does not have keyWindow")
-        }
-        
-        HealthModel.buildHealthModel().done { model in
-            let playerVC = PlayerViewController.instantiate(healthModel: model)
-            mainWindow.rootViewController = playerVC
+        HealthModel.buildHealthModel().done { healthModelAndSignal in
+            let playerVC = PlayerViewController.instantiate(healthModelAndSignal: healthModelAndSignal)
+            UIApplication.shared.mainWindow?.rootViewController = playerVC
         }.catch { error in
             fatalError(error.localizedDescription)
         }

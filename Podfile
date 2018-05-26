@@ -8,5 +8,6 @@ target 'Adidas Hackathon Madrid' do
   # Pods for Adidas Hackathon Madrid
   pod 'PromiseKit', '~> 6.0'
   pod 'Reusable', '~> 4.0.2'
+  pod 'ReactiveCocoa', '~> 7.2.0'
 
 end
