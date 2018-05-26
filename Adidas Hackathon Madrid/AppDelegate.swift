@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     }
 
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
-        self.player.playSpotifyURI("spotify:track:58s6EuEYJdlb0kO7awm3Vp", startingWith: 0, startingWithPosition: 0) { (optionalError) in
+        self.player.playSpotifyURI("spotify:track:53Kf1deIW8fcRaulTzQTRO", startingWith: 0, startingWithPosition: 0) { (optionalError) in
             if (optionalError != nil) {
                 print("*** failed to play: %@")
                 return
