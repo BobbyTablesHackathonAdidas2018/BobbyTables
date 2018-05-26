@@ -19,12 +19,12 @@ class EntryViewController: UIViewController {
             fatalError("App does not have keyWindow")
         }
         
-        HealthModel.buildHealthModel().done { model in
-            let playerVC = PlayerViewController.instantiate(healthModel: model)
-            mainWindow.rootViewController = playerVC
-        }.catch { error in
-            fatalError(error.localizedDescription)
-        }
+//        HealthModel.buildHealthModel().done { model in
+//            let playerVC = PlayerViewController.instantiate(healthModel: model)
+//            mainWindow.rootViewController = playerVC
+//        }.catch { error in
+//            fatalError(error.localizedDescription)
+//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

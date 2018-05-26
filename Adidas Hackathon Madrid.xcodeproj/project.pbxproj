@@ -18,6 +18,11 @@
 		13BDF0CE20B95C7C0013017F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13BDF0CD20B95C7C0013017F /* Assets.xcassets */; };
 		13BDF0D120B95C7C0013017F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BDF0CF20B95C7C0013017F /* LaunchScreen.storyboard */; };
 		13BDF0DA20B960B40013017F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13BDF0D920B960B40013017F /* HealthKit.framework */; };
+		2F668C8720B9B45A003EF2C6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F668C8620B9B45A003EF2C6 /* AVFoundation.framework */; };
+		2F668C8920B9B46A003EF2C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F668C8820B9B46A003EF2C6 /* SystemConfiguration.framework */; };
+		2F668C9120B9BB4D003EF2C6 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F668C8E20B9BB4D003EF2C6 /* SpotifyMetadata.framework */; };
+		2F668C9220B9BB4D003EF2C6 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F668C8F20B9BB4D003EF2C6 /* SpotifyAudioPlayback.framework */; };
+		2F668C9320B9BB4D003EF2C6 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F668C9020B9BB4D003EF2C6 /* SpotifyAuthentication.framework */; };
 		E91FEB4A266ED6980403E5DC /* Pods_Adidas_Hackathon_Madrid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AA8DE7377E07E91DBE536C /* Pods_Adidas_Hackathon_Madrid.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +42,12 @@
 		13BDF0D220B95C7C0013017F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13BDF0D820B960B30013017F /* Adidas Hackathon Madrid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Adidas Hackathon Madrid.entitlements"; sourceTree = "<group>"; };
 		13BDF0D920B960B40013017F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		2F668C8620B9B45A003EF2C6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2F668C8820B9B46A003EF2C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		2F668C8A20B9B725003EF2C6 /* Adidas Hackathon Madrid-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Adidas Hackathon Madrid-Bridging-Header.h"; sourceTree = "<group>"; };
+		2F668C8E20B9BB4D003EF2C6 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
+		2F668C8F20B9BB4D003EF2C6 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
+		2F668C9020B9BB4D003EF2C6 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
 		45AA8DE7377E07E91DBE536C /* Pods_Adidas_Hackathon_Madrid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adidas_Hackathon_Madrid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32FE4ABB80EDAF00E4AAC98 /* Pods-Adidas Hackathon Madrid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adidas Hackathon Madrid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Adidas Hackathon Madrid/Pods-Adidas Hackathon Madrid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -46,6 +57,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F668C9120B9BB4D003EF2C6 /* SpotifyMetadata.framework in Frameworks */,
+				2F668C9220B9BB4D003EF2C6 /* SpotifyAudioPlayback.framework in Frameworks */,
+				2F668C9320B9BB4D003EF2C6 /* SpotifyAuthentication.framework in Frameworks */,
+				2F668C8920B9B46A003EF2C6 /* SystemConfiguration.framework in Frameworks */,
+				2F668C8720B9B45A003EF2C6 /* AVFoundation.framework in Frameworks */,
 				E91FEB4A266ED6980403E5DC /* Pods_Adidas_Hackathon_Madrid.framework in Frameworks */,
 				13BDF0DA20B960B40013017F /* HealthKit.framework in Frameworks */,
 			);
@@ -128,6 +144,7 @@
 				13BDF0CD20B95C7C0013017F /* Assets.xcassets */,
 				13BDF0CF20B95C7C0013017F /* LaunchScreen.storyboard */,
 				13BDF0D220B95C7C0013017F /* Info.plist */,
+				2F668C8A20B9B725003EF2C6 /* Adidas Hackathon Madrid-Bridging-Header.h */,
 			);
 			path = "Adidas Hackathon Madrid";
 			sourceTree = "<group>";
@@ -135,6 +152,11 @@
 		D48A0ED6FEF167B7E2078348 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F668C8F20B9BB4D003EF2C6 /* SpotifyAudioPlayback.framework */,
+				2F668C9020B9BB4D003EF2C6 /* SpotifyAuthentication.framework */,
+				2F668C8E20B9BB4D003EF2C6 /* SpotifyMetadata.framework */,
+				2F668C8820B9B46A003EF2C6 /* SystemConfiguration.framework */,
+				2F668C8620B9B45A003EF2C6 /* AVFoundation.framework */,
 				13BDF0D920B960B40013017F /* HealthKit.framework */,
 				45AA8DE7377E07E91DBE536C /* Pods_Adidas_Hackathon_Madrid.framework */,
 			);
@@ -175,6 +197,7 @@
 				TargetAttributes = {
 					13BDF0C020B95C7B0013017F = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 0930;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
 								enabled = 1;
@@ -411,18 +434,35 @@
 			baseConfigurationReference = 0CDA5FAD224EB40230D08923 /* Pods-Adidas Hackathon Madrid.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Adidas Hackathon Madrid/Adidas Hackathon Madrid.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Z25DT3NGV;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Adidas Hackathon Madrid/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"PromiseKit\"",
+					"-framework",
+					"\"Reusable\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "tables.bobby.Adidas-Hackathon-Madrid";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Adidas Hackathon Madrid/Adidas Hackathon Madrid-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
+				SYSTEM_HEADER_SEARCH_PATHS = "${SRCROOT}/*/**";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/*/**";
 			};
 			name = Debug;
 		};
@@ -431,18 +471,34 @@
 			baseConfigurationReference = A32FE4ABB80EDAF00E4AAC98 /* Pods-Adidas Hackathon Madrid.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Adidas Hackathon Madrid/Adidas Hackathon Madrid.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Z25DT3NGV;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Adidas Hackathon Madrid/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"PromiseKit\"",
+					"-framework",
+					"\"Reusable\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "tables.bobby.Adidas-Hackathon-Madrid";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Adidas Hackathon Madrid/Adidas Hackathon Madrid-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
+				SYSTEM_HEADER_SEARCH_PATHS = "${SRCROOT}/*/**";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/*/**";
 			};
 			name = Release;
 		};
