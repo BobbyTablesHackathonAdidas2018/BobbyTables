@@ -15,7 +15,11 @@ async function getNextSong (bpm, seedSong) {
   let browser, page
   try {
     browser = await puppeteer.launch({
-      headless: true
+      headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox'
+      ]
     })
     process.on('beforeExit', function () {
       browser.close()
