@@ -16,12 +16,24 @@ typealias Source = CoreMotionModel // Just to make it easier to work with storyb
 final class PlayerViewController: UIViewController, StoryboardBased {
     @IBOutlet private weak var stepsLabel: UILabel!
     @IBOutlet private weak var debugLabel: UILabel!
+    
+    /// Data source feeding this controller with epoch statistics.
     private var source: EpochStatsSource!
+    /// Disposable listening to new events emitted by the data source.
     private var epochStatsDisposable: Disposable!
    
-    // This is here just to demo
-    private var maxBMP: Double = 0
+    /// Song currently being played.
+    private var currentlyPlayingSong: Song = Song.initialSong {
+        didSet {
+            // TODO: Update SpotifyPlayer
+        }
+    }
     
+    // MARK: -
+    
+    /// Returns a new instance properly initialized to get data from given source.
+    /// - parameter modelAndSignal: Data source and event emitter used to feed this view controller.
+    /// - returns: New properly initialized instance.
     static func instantiate(modelAndSignal: SourceAndSignal<Source>) -> PlayerViewController {
         let vc = PlayerViewController.instantiate()
         vc.source = modelAndSignal.source
@@ -30,6 +42,8 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         }
         return vc
     }
+    
+    // MARK: -
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +64,8 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         // Release any cached data, images, etc that aren't in use.
     }
     
+    // MARK: - User interaction handlers
+    
     @IBAction private func reloadEpoch () {
         _ = self.source.getCurrentEpochStats().done { epochStats in
             self.handle(newEpochStats: epochStats)
@@ -67,11 +83,14 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         dateFormatter.dateFormat = "HH:mm:ss zzz"
         
         self.debugLabel.text = epochStats.debugInfo
-        
         self.stepsLabel.text = String(
             format: "Steps at %@: %.2f",
             dateFormatter.string(from: epochStats.epoch.end),
             epochStats.bpm
         )
+        
+        _ = MusicModel.getSong(for: epochStats, with: self.currentlyPlayingSong).done { url in
+            print(url)
+        }
     }
 }

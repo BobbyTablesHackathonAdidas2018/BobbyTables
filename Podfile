@@ -9,5 +9,8 @@ target 'Adidas Hackathon Madrid' do
   pod 'PromiseKit', '~> 6.0'
   pod 'Reusable', '~> 4.0.2'
   pod 'ReactiveCocoa', '~> 7.2.0'
+  pod 'Alamofire', '~> 4.7.2'
+  pod 'PromiseKit/Alamofire', '~> 6.0'
+  pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :tag => 'v0.11.1'
 
 end
