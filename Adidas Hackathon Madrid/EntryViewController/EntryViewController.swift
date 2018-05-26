@@ -20,9 +20,16 @@ class EntryViewController: UIViewController {
 //        }.catch { error in
 //            fatalError(error.localizedDescription)
 //        }
-        CoreMotionModel.buildCoreMotionModel().done { coreMotionModelAndSignal in
-            let playerVC = PlayerViewController.instantiate(modelAndSignal: coreMotionModelAndSignal)
-            UIApplication.shared.mainWindow?.rootViewController = playerVC
+
+        MusicModel.startSpotifyAuthenticationFlow { authenticationController in
+            OperationQueue.main.addOperation {
+                self.present(authenticationController, animated: true, completion: nil)
+            }
+        }.then {
+            return CoreMotionModel.buildCoreMotionModel().done { coreMotionModelAndSignal in
+                let playerVC = PlayerViewController.instantiate(modelAndSignal: coreMotionModelAndSignal)
+                UIApplication.shared.mainWindow?.rootViewController = playerVC
+            }
         }.catch { error in
             fatalError(error.localizedDescription)
         }

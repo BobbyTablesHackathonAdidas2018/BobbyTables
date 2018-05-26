@@ -66,6 +66,16 @@ public typealias EpochStats = (
     debugInfo: String
 )
 
+/// Returns whether two EpochStats are similar or not.
+/// - parameter lhs: Left hand side epoch to compare.
+/// - parameter rhs: Right hand side epoch to compare.
+/// - returns: `true` is both epochs are really similar.
+public func ~=(lhs: EpochStats, rhs: EpochStats) -> Bool {
+    let maxBpm = max(lhs.bpm, rhs.bpm)
+    let diffBpm = abs(lhs.bpm - rhs.bpm)
+    return diffBpm / maxBpm < 0.1
+}
+
 /// A tuple of HealthModel and a Signal with epoch stats.
 public typealias SourceAndSignal<Source: EpochStatsSource> = (
     source: Source,

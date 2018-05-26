@@ -21,13 +21,6 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     private var source: EpochStatsSource!
     /// Disposable listening to new events emitted by the data source.
     private var epochStatsDisposable: Disposable!
-   
-    /// Song currently being played.
-    private var currentlyPlayingSong: Song = Song.initialSong {
-        didSet {
-            // TODO: Update SpotifyPlayer
-        }
-    }
     
     // MARK: -
     
@@ -47,8 +40,10 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.stepsLabel.text = "HOLA MUNDO"
-        self.reloadEpoch()
+        // TODO: Probably we don't want to start music until we start moving but...
+        _ = MusicModel.replaceCurrentlyPlayingSong(with: Song.initialSong)
+        // self.stepsLabel.text = "HOLA MUNDO"
+        // self.reloadEpoch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +73,6 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     /// recomputing next queued song if required.
     /// - parameter epochStats: Stats to be handled.
     private func handle(newEpochStats epochStats: EpochStats) {
-        // TODO: Do something
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss zzz"
         
@@ -89,8 +83,33 @@ final class PlayerViewController: UIViewController, StoryboardBased {
             epochStats.bpm
         )
         
-        _ = MusicModel.getSong(for: epochStats, with: self.currentlyPlayingSong).done { url in
-            print(url)
+        if
+            let currentSong = MusicModel.currentlyPlayingSong,
+            let request = currentSong.request,
+            request.epochStats ~= epochStats, // If epochs are similar...
+            let remainingPercent = MusicModel.currentlyPlayedSongRemainingPercent,
+            remainingPercent > 0.15, // And there's still more than 15% of the song to play...
+            let remainingDuration = MusicModel.currentlyPlayedSongRemainingDuration,
+            remainingDuration > 30 // And there are still more than 30 seconds of song to play...
+        {
+            // ... then do nothing
+            print("Ignoring requested update")
+            return
+        }
+        
+        // TODO: We should probably check if we should start playing next song
+        
+        // Otherwise...
+        // - if epochs are different
+        // - or... there's less than 15% of the song to play
+        // - or... there are less than 30 seconds of song remaining
+        // ... get a new song and play it
+        
+        _ = MusicModel.getSong(
+            for: epochStats,
+            with: MusicModel.currentlyPlayingSong ?? Song.initialSong
+        ).done { song in
+            MusicModel.replaceEnqueuedSong(with: song)
         }
     }
 }

@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -36,11 +41,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This application will use the camera for Augmented Reality.</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>We need access to your activity info to find a proper song for your workout. We won't share any data with 3rd parties!</string>
+	<string>We need access to your activity info to find a proper song for your workout. We won&apos;t share any data with 3rd parties!</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Needed to get your activity data to find a proper song for your workout</string>
 	<key>NSMotionUsageDescription</key>
-	<string>We need access to your activity info to find a proper song for your workout. We won't share any data with 3rd parties!</string>
+	<string>We need access to your activity info to find a proper song for your workout. We won&apos;t share any data with 3rd parties!</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
