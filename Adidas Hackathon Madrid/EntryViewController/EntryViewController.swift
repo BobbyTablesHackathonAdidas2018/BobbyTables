@@ -14,8 +14,14 @@ class EntryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        HealthModel.buildHealthModel().done { healthModelAndSignal in
-            let playerVC = PlayerViewController.instantiate(healthModelAndSignal: healthModelAndSignal)
+//        HealthModel.buildHealthModel().done { healthModelAndSignal in
+//            let playerVC = PlayerViewController.instantiate(modelAndSignal: healthModelAndSignal)
+//            UIApplication.shared.mainWindow?.rootViewController = playerVC
+//        }.catch { error in
+//            fatalError(error.localizedDescription)
+//        }
+        CoreMotionModel.buildCoreMotionModel().done { coreMotionModelAndSignal in
+            let playerVC = PlayerViewController.instantiate(modelAndSignal: coreMotionModelAndSignal)
             UIApplication.shared.mainWindow?.rootViewController = playerVC
         }.catch { error in
             fatalError(error.localizedDescription)

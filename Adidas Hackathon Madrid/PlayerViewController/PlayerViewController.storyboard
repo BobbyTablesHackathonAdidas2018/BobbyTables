@@ -28,7 +28,7 @@
                                 <rect key="frame" x="161.5" y="364" width="53" height="30"/>
                                 <state key="normal" title="Refresh"/>
                                 <connections>
-                                    <action selector="reloadSteps" destination="Lbj-fX-slU" eventType="touchUpInside" id="gY5-Ot-hRN"/>
+                                    <action selector="reloadEpoch" destination="Lbj-fX-slU" eventType="touchUpInside" id="3G3-Hu-dag"/>
                                 </connections>
                             </button>
                         </subviews>

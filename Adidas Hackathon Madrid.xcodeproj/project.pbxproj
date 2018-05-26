@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		131492C020B98117000EE678 /* UIApplication+mainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131492BF20B98117000EE678 /* UIApplication+mainWindow.swift */; };
 		131492C420B98624000EE678 /* PlayerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 131492C320B98624000EE678 /* PlayerViewController.storyboard */; };
+		131492CC20B9A2C1000EE678 /* Epoch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131492CB20B9A2C1000EE678 /* Epoch.swift */; };
+		131492D020B9A8A5000EE678 /* CoreMotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131492CF20B9A8A5000EE678 /* CoreMotionModel.swift */; };
+		131492D220B9AA28000EE678 /* CoreMotionModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131492D120B9AA28000EE678 /* CoreMotionModelError.swift */; };
 		1358D3CD20B9645400E72DFD /* HealthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1358D3CC20B9645400E72DFD /* HealthModel.swift */; };
 		1386B42720B96B1700F56388 /* HealthModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386B42620B96B1700F56388 /* HealthModelError.swift */; };
 		1386B42920B9772B00F56388 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386B42820B9772B00F56388 /* PlayerViewController.swift */; };
@@ -25,6 +28,9 @@
 		0CDA5FAD224EB40230D08923 /* Pods-Adidas Hackathon Madrid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adidas Hackathon Madrid.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Adidas Hackathon Madrid/Pods-Adidas Hackathon Madrid.debug.xcconfig"; sourceTree = "<group>"; };
 		131492BF20B98117000EE678 /* UIApplication+mainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+mainWindow.swift"; sourceTree = "<group>"; };
 		131492C320B98624000EE678 /* PlayerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerViewController.storyboard; sourceTree = "<group>"; };
+		131492CB20B9A2C1000EE678 /* Epoch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Epoch.swift; sourceTree = "<group>"; };
+		131492CF20B9A8A5000EE678 /* CoreMotionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionModel.swift; sourceTree = "<group>"; };
+		131492D120B9AA28000EE678 /* CoreMotionModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionModelError.swift; sourceTree = "<group>"; };
 		1358D3CC20B9645400E72DFD /* HealthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthModel.swift; sourceTree = "<group>"; };
 		1386B42620B96B1700F56388 /* HealthModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthModelError.swift; sourceTree = "<group>"; };
 		1386B42820B9772B00F56388 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -92,7 +98,10 @@
 			isa = PBXGroup;
 			children = (
 				1358D3CC20B9645400E72DFD /* HealthModel.swift */,
+				131492CF20B9A8A5000EE678 /* CoreMotionModel.swift */,
+				131492D120B9AA28000EE678 /* CoreMotionModelError.swift */,
 				1386B42620B96B1700F56388 /* HealthModelError.swift */,
+				131492CB20B9A2C1000EE678 /* Epoch.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,12 +276,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				131492D020B9A8A5000EE678 /* CoreMotionModel.swift in Sources */,
 				13BDF0C920B95C7B0013017F /* EntryViewController.swift in Sources */,
 				1358D3CD20B9645400E72DFD /* HealthModel.swift in Sources */,
+				131492D220B9AA28000EE678 /* CoreMotionModelError.swift in Sources */,
 				1386B42720B96B1700F56388 /* HealthModelError.swift in Sources */,
 				13BDF0C520B95C7B0013017F /* AppDelegate.swift in Sources */,
 				1386B42920B9772B00F56388 /* PlayerViewController.swift in Sources */,
 				131492C020B98117000EE678 /* UIApplication+mainWindow.swift in Sources */,
+				131492CC20B9A2C1000EE678 /* Epoch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

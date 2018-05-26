@@ -10,20 +10,21 @@ import UIKit
 import Reusable
 import ReactiveSwift
 
+typealias Source = CoreMotionModel // Just to make it easier to work with storyboards
+
 /// This VC shows the main UI of the music player
 final class PlayerViewController: UIViewController, StoryboardBased {
-    
     @IBOutlet private weak var stepsLabel: UILabel!
-    private var healthModel: HealthModel!
+    private var source: EpochStatsSource!
     private var epochStatsDisposable: Disposable!
    
     // This is here just to demo
     private var maxBMP: Double = 0
     
-    static func instantiate(healthModelAndSignal: HealthModelAndSignal) -> PlayerViewController {
+    static func instantiate(modelAndSignal: SourceAndSignal<Source>) -> PlayerViewController {
         let vc = PlayerViewController.instantiate()
-        vc.healthModel = healthModelAndSignal.healthModel
-        vc.epochStatsDisposable = healthModelAndSignal.epochStatsSignal.observeValues { epochStats in
+        vc.source = modelAndSignal.source
+        vc.epochStatsDisposable = modelAndSignal.epochStatsSignal.observeValues { epochStats in
             vc.handle(newEpochStats: epochStats)
         }
         return vc
@@ -32,7 +33,7 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.stepsLabel.text = "HOLA MUNDO"
-        self.reloadSteps()
+        self.reloadEpoch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,9 +49,9 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         // Release any cached data, images, etc that aren't in use.
     }
     
-    @IBAction private func reloadSteps () {
-        _ = self.healthModel.getSteps().done { steps in
-            self.stepsLabel.text = String(format: "Steps: %d", steps)
+    @IBAction private func reloadEpoch () {
+        _ = self.source.getCurrentEpochStats().done { epochStats in
+            self.handle(newEpochStats: epochStats)
         }
     }
     
@@ -73,4 +74,3 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         )
     }
 }
-
