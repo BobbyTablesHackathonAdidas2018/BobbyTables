@@ -1,4 +1,3 @@
-const bpmKey = 'bca4d13a3b1505181f0d029fcacea404'
 
 const express = require('express')
 
