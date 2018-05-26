@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const bpmService = require('./bpmService')
 const http = require('http')
-const port = 80
+const port = 3000
 
 const app = express()
 
