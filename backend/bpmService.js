@@ -2,6 +2,7 @@ const request = require('request')
 const puppeteer = require('puppeteer')
 // getNextSong(100, 'Metallica')
 module.exports = {getNextSong}
+let browser
 async function getNextSong (bpm, seedSong) {
   console.log('Searching for', bpm, seedSong)
   if (!bpm || !seedSong) {
@@ -12,15 +13,17 @@ async function getNextSong (bpm, seedSong) {
     returnResolve = resolve
     returnReject = reject
   })
-  let browser, page
+  let page
   try {
-    browser = await puppeteer.launch({
-      headless: true/*,
+    if (browser === undefined) {
+      browser = await puppeteer.launch({
+        headless: true/*,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox'
       ]*/
-    })
+      })
+    }
     process.on('beforeExit', function () {
       browser.close()
     })
