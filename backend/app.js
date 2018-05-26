@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const bpmService = require('./bpmService')
 const http = require('http')
-const port = 3000
+const port = 80
 
 const app = express()
 
@@ -29,9 +29,9 @@ app.use(bodyParser.urlencoded({extended: false}))
 const router = express.Router()
 
 router.get('/nextSong', async function (req, res, next) {
-  const bpm = req.query.bpm
-  const song = req.query.song
-  const artist = req.query.artist
+  const bpm = req.query.bpm || ''
+  const song = req.query.song || ''
+  const artist = req.query.artist || ''
   console.log(bpm, song, artist)
   try {
     const track = await bpmService.getNextSong(bpm, song + ' ' + artist)
