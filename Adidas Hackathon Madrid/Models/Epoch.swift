@@ -33,6 +33,15 @@ public struct Epoch {
         }
     }
     
+    /// Creates a new epoch that starts and ends at given dates.
+    /// - parameter start: Date when the epoch starts.
+    /// - parameter end: Date when the epoch ends.
+    /// - returns: Epoch ending at given date.
+    public init(startingAt start: Date, endingAt end: Date) {
+        self.start = start
+        self.end = end
+    }
+    
     /// Creates a new epoch that ends at given date.
     /// - parameter end: Date when the epoch ends.
     /// - returns: Epoch ending at given date.
@@ -41,10 +50,21 @@ public struct Epoch {
         let epochInSeconds = Epoch.duration.converted(to: .seconds).value
         self.start = end.addingTimeInterval(-1.0 * epochInSeconds)
     }
+    
+    /// Duration of this time interval.
+    public var duration: TimeInterval {
+        get {
+            return self.end.timeIntervalSince(self.start)
+        }
+    }
 }
 
 /// Statistics on a single epoch.
-public typealias EpochStats = (bpm: Double, epoch: Epoch)
+public typealias EpochStats = (
+    bpm: Double,
+    epoch: Epoch,
+    debugInfo: String
+)
 
 /// A tuple of HealthModel and a Signal with epoch stats.
 public typealias SourceAndSignal<Source: EpochStatsSource> = (
@@ -60,10 +80,27 @@ public protocol EpochStatsSource {
     func getStats(epoch: Epoch) -> Promise<EpochStats>
 }
 
+/// Background queue used to query epoch data sources.
+private let backgroundQueue: OperationQueue = {
+    let queue = OperationQueue()
+    queue.name = "epochBackgroundQueue"
+    queue.qualityOfService = .userInitiated
+    return queue
+}()
+
 extension EpochStatsSource {
     /// Returns current epoch stats.
     /// - returns: Current epoch stats.
     func getCurrentEpochStats() -> Promise<EpochStats> {
-        return self.getStats(epoch: Epoch.current)
+        let (promise, resolver) = Promise<EpochStats>.pending()
+        
+        let epoch = Epoch.current
+        backgroundQueue.addOperation {
+            self.getStats(epoch: epoch)
+                .done(resolver.fulfill)
+                .catch(resolver.reject)
+        }
+        
+        return promise
     }
 }

@@ -15,6 +15,7 @@ typealias Source = CoreMotionModel // Just to make it easier to work with storyb
 /// This VC shows the main UI of the music player
 final class PlayerViewController: UIViewController, StoryboardBased {
     @IBOutlet private weak var stepsLabel: UILabel!
+    @IBOutlet private weak var debugLabel: UILabel!
     private var source: EpochStatsSource!
     private var epochStatsDisposable: Disposable!
    
@@ -65,12 +66,12 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss zzz"
         
-        self.maxBMP = max(self.maxBMP, epochStats.bpm)
+        self.debugLabel.text = epochStats.debugInfo
         
         self.stepsLabel.text = String(
             format: "Steps at %@: %.2f",
             dateFormatter.string(from: epochStats.epoch.end),
-            self.maxBMP
+            epochStats.bpm
         )
     }
 }

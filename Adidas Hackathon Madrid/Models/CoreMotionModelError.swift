@@ -8,8 +8,12 @@
 
 import Foundation
 
+/// Possible errors produced by CoreMotion model.
+/// - `permissionsNotGiven`: User didn't give permissions to get motion data.
+/// - `noDataAvailable`: No motion data has been emitted yet.
+/// - `unexpectedQuery`: Historical data query failed.
 enum CoreMotionModelError: Error {
     case permissionsNotGiven
-//    case unknownQuantityType
-    case unexpectedQueryError
+    case noDataAvailable
+    case unexpectedQuery
 }

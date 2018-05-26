@@ -19,6 +19,9 @@ public struct CoreMotionModel: EpochStatsSource {
     
     // MARK: - Private helpers
     
+    /// Signal emitting pedometer data and holding last emitted value.
+    private let currentPedometerData: Property<CMPedometerData>
+    
     /// QueueScheduler where background epoch calculations will be performed to
     /// not block UI thread.
     private static let epochStatsQueue: QueueScheduler = QueueScheduler(
@@ -45,6 +48,30 @@ public struct CoreMotionModel: EpochStatsSource {
         return epochSignalProducer
     }()
     
+    // MARK: -
+    
+    /// Returns a new EpochStats from given data from pedometer.
+    /// - parameter pedometerData: Data from pedometer.
+    private static func getEpochStats(from pedometerData: CMPedometerData) -> EpochStats {
+        let epoch = Epoch(
+            startingAt: pedometerData.startDate,
+            endingAt: pedometerData.endDate
+        )
+        
+        let bps: Double
+        let debugInfo: String
+        if let cadence = pedometerData.currentCadence {
+            bps = cadence.doubleValue
+            debugInfo = "Using CADENCE"
+        } else {
+            let steps = pedometerData.numberOfSteps.doubleValue
+            bps = steps / epoch.duration
+            debugInfo = "Using number of steps"
+        }
+        
+        return (bpm: bps * 60, debugInfo: debugInfo, epoch: epoch)
+    }
+    
     // MARK: - Public
     
     /// Returns a promise that will be resolved with a new `CoreMotionModel`.
@@ -57,18 +84,49 @@ public struct CoreMotionModel: EpochStatsSource {
         
         let pedometer = CMPedometer()
         
-        pedometer.queryPedometerData(from: Date(), to: Date()) { (optionalData, optionalError) in
+        let (
+            pedometerDataSignalOutput,
+            pedometerDataSignalInput
+        ) = Signal<CMPedometerData, NoError>.pipe()
+        
+        
+        
+        pedometer.startUpdates(from: Date()) { (optionalData, optionalError) in
+            print("PEDOMETER GAVE DATA!!!!")
+            
+            if let error = optionalError {
+                print(error.localizedDescription)
+                return
+            }
+
+            guard let data = optionalData else {
+                print("No data received from pedometer")
+                return
+            }
+            
+            pedometerDataSignalInput.send(value: data)
+        }
+        
+        let epoch = Epoch.current
+        
+        pedometer.queryPedometerData(from: epoch.start, to: epoch.end) { (optionalData, optionalError) in
             if let error = optionalError {
                 resolver.reject(error)
                 return
             }
             
-            guard optionalData != nil else {
+            guard let data = optionalData else {
                 resolver.reject(CoreMotionModelError.permissionsNotGiven)
                 return
             }
             
-            let coreMotionModel = CoreMotionModel(pedometer: pedometer)
+            let coreMotionModel = CoreMotionModel(
+                pedometer: pedometer,
+                currentPedometerData: Property<CMPedometerData>(
+                    initial: data,
+                    then: pedometerDataSignalOutput
+                )
+            )
             
             let epochStatsSignal: Signal<EpochStats, NoError> = {
                 let (output, input) = Signal<EpochStats, NoError>.pipe()
@@ -96,32 +154,6 @@ public struct CoreMotionModel: EpochStatsSource {
     // MARK: - EpochStatsSource Protocol Methods
 
     public func getStats(epoch: Epoch) -> Promise<EpochStats> {
-        let (promise, resolver) = Promise<EpochStats>.pending()
-        
-        self.pedometer.queryPedometerData(from: epoch.start, to: epoch.end) { (optionalData, optionalError) in
-            if let error = optionalError {
-                resolver.reject(error)
-                return
-            }
-            
-            guard let data = optionalData else {
-                resolver.reject(CoreMotionModelError.unexpectedQueryError)
-                return
-            }
-            
-            let bpm: Double
-            
-            if let cadence = data.currentCadence {
-                bpm = cadence.doubleValue
-            } else {
-                bpm = data.numberOfSteps.doubleValue
-            }
-            
-            let epochStats: EpochStats = (bpm: bpm, epoch: epoch)
-            
-            resolver.fulfill(epochStats)
-        }
-        
-        return promise
+        return Promise<EpochStats>.value(CoreMotionModel.getEpochStats(from: self.currentPedometerData.value))
     }
 }

@@ -18,19 +18,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T86-93-KPW">
-                                <rect key="frame" x="166" y="323.5" width="44" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T86-93-KPW">
+                                <rect key="frame" x="165.5" y="323.5" width="44" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GM6-MU-VFy">
-                                <rect key="frame" x="161.5" y="364" width="53" height="30"/>
+                                <rect key="frame" x="161" y="364" width="53" height="30"/>
                                 <state key="normal" title="Refresh"/>
                                 <connections>
                                     <action selector="reloadEpoch" destination="Lbj-fX-slU" eventType="touchUpInside" id="3G3-Hu-dag"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Debug info?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruA-aX-IsR">
+                                <rect key="frame" x="10" y="404" width="355" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -40,14 +46,19 @@
                             <constraint firstItem="GM6-MU-VFy" firstAttribute="top" secondItem="T86-93-KPW" secondAttribute="bottom" constant="20" id="FzP-9c-YkL"/>
                             <constraint firstItem="T86-93-KPW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ti8-T6-eQk" secondAttribute="top" constant="10" id="HBx-4X-kGp"/>
                             <constraint firstItem="ti8-T6-eQk" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="T86-93-KPW" secondAttribute="trailing" constant="10" id="PTn-PQ-Hia"/>
+                            <constraint firstItem="ruA-aX-IsR" firstAttribute="centerX" secondItem="GM6-MU-VFy" secondAttribute="centerX" id="WC0-9A-h6U"/>
                             <constraint firstItem="GM6-MU-VFy" firstAttribute="centerX" secondItem="T86-93-KPW" secondAttribute="centerX" id="WGi-5z-Ik4"/>
                             <constraint firstItem="ti8-T6-eQk" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="T86-93-KPW" secondAttribute="bottom" constant="10" id="aBF-RJ-fSI"/>
+                            <constraint firstItem="ruA-aX-IsR" firstAttribute="top" secondItem="GM6-MU-VFy" secondAttribute="bottom" constant="10" id="aW9-t3-wfY"/>
+                            <constraint firstItem="ti8-T6-eQk" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="ruA-aX-IsR" secondAttribute="trailing" constant="10" id="bKP-bs-Dm7"/>
                             <constraint firstItem="T86-93-KPW" firstAttribute="centerY" secondItem="WC0-gt-tG1" secondAttribute="centerY" id="cIo-Iq-BYl"/>
+                            <constraint firstItem="ruA-aX-IsR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ti8-T6-eQk" secondAttribute="leading" constant="10" id="ubF-OK-psc"/>
                             <constraint firstItem="GM6-MU-VFy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ti8-T6-eQk" secondAttribute="leading" constant="10" id="yvy-dW-g0A"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ti8-T6-eQk"/>
                     </view>
                     <connections>
+                        <outlet property="debugLabel" destination="ruA-aX-IsR" id="KK1-nd-9w0"/>
                         <outlet property="stepsLabel" destination="T86-93-KPW" id="gFP-RS-xzM"/>
                         <outlet property="view" destination="WC0-gt-tG1" id="EzJ-YH-Z04"/>
                     </connections>
