@@ -12,10 +12,10 @@ import PromiseKit
 import Haneke
 
 /// Base URL to our API.
-//private let backendBaseURL: URL = URL(string: "http://52.31.62.57")!
+private let backendBaseURL: URL = URL(string: "http://52.31.62.57")!
 //private let backendBaseURL: URL = URL(string: "http://10.0.3.23:3000")!
 //private let backendBaseURL: URL = URL(string: "http://172.16.30.91:3000")!
-private let backendBaseURL: URL = URL(string: "http://10.2.0.1:3000")!
+//private let backendBaseURL: URL = URL(string: "http://10.2.0.1:3000")!
 
 /// A NumberFormatter which prints numbers as integers.
 let integerNumberFormatter: NumberFormatter = {
@@ -36,7 +36,8 @@ public struct SongRequest {
         get {
             return [
                 "bpm": integerNumberFormatter.string(from: NSNumber(floatLiteral: self.epochStats.bpm))!,
-                "song": self.previousSong.name
+                "song": self.previousSong.name,
+                "artist": self.previousSong.artistName
             ]
         }
     }
@@ -57,13 +58,22 @@ public class Song: NSObject, NSCoding, DataRepresentable, DataConvertible {
     public let name: String
     /// URL to album artwork.
     public let artworkURL: String
+    /// Name of the artist.
+    public let artistName: String
     /// Song request which produced this song.
     public let request: SongRequest?
     
-    public init(spotifyURI: String, name: String, artworkURL: String, request: SongRequest? = nil) {
+    public init(
+        spotifyURI: String,
+        name: String,
+        artworkURL: String,
+        artistName: String,
+        request: SongRequest? = nil
+    ) {
         self.spotifyURI = spotifyURI
         self.name = name
         self.artworkURL = artworkURL
+        self.artistName = artistName
         self.request = request
     }
     
@@ -76,6 +86,7 @@ public class Song: NSObject, NSCoding, DataRepresentable, DataConvertible {
             spotifyURI: self.spotifyURI,
             name: self.name,
             artworkURL: self.artworkURL,
+            artistName: self.artistName,
             request: request
         )
     }
@@ -88,7 +99,8 @@ public class Song: NSObject, NSCoding, DataRepresentable, DataConvertible {
             return Song(
                 spotifyURI: "spotify:track:1bdXMstfxFWYSkEFTnJMoN",
                 name: "Enter Sandman",
-                artworkURL: "https://i.scdn.co/image/1e886ca74a1dc17b9a226283b9cc4b765ee25cb8"
+                artworkURL: "https://i.scdn.co/image/1e886ca74a1dc17b9a226283b9cc4b765ee25cb8",
+                artistName: "Metallica"
             )
         }
     }
@@ -101,6 +113,8 @@ public class Song: NSObject, NSCoding, DataRepresentable, DataConvertible {
     private static let nameKey: String = "name"
     /// Key used to encode `artworkURL` attribute in NSCoder.
     private static let artworkURLKey: String = "artworkURL"
+    /// Key used to encode `artistName` attribute in NSCoder.
+    private static let artistNameKey: String = "artistName"
     
     // MARK: - NSCoding Protocol Methods
     
@@ -108,18 +122,25 @@ public class Song: NSObject, NSCoding, DataRepresentable, DataConvertible {
         aCoder.encode(self.spotifyURI, forKey: Song.spotifyURIKey)
         aCoder.encode(self.name, forKey: Song.nameKey)
         aCoder.encode(self.artworkURL, forKey: Song.artworkURLKey)
+        aCoder.encode(self.artistName, forKey: Song.artistNameKey)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {
         guard
             let spotifyURI = aDecoder.decodeObject(forKey: Song.spotifyURIKey) as? String,
             let name = aDecoder.decodeObject(forKey: Song.nameKey) as? String,
-            let artworkURL = aDecoder.decodeObject(forKey: Song.artworkURLKey) as? String
+            let artworkURL = aDecoder.decodeObject(forKey: Song.artworkURLKey) as? String,
+            let artistName = aDecoder.decodeObject(forKey: Song.artistNameKey) as? String
         else {
             return nil
         }
         
-        self.init(spotifyURI: spotifyURI, name: name, artworkURL: artworkURL)
+        self.init(
+            spotifyURI: spotifyURI,
+            name: name,
+            artworkURL: artworkURL,
+            artistName: artistName
+        )
     }
     
     // MARK: - DataConvertible Protocol Methods
@@ -344,15 +365,17 @@ struct MusicModel {
                     let json = data.json as? NSDictionary,
                     let uri = json.value(forKey: "SpotifyUrl") as? String,
                     let name = json.value(forKey: "Name") as? String,
-                    let artworkURL = json.value(forKey: "ImageUrlL") as? String
+                    let artworkURL = json.value(forKey: "ImageUrlL") as? String,
+                    let artistName = json.value(forKey: "ArtistName") as? String
                 else {
                     return resolver.reject(MusicModelError.unparseableBackendResponse)
                 }
-        
+                
                 let song = Song(
                     spotifyURI: uri,
                     name: name,
                     artworkURL: artworkURL,
+                    artistName: artistName,
                     request: songRequestParameter
                 )
                 
