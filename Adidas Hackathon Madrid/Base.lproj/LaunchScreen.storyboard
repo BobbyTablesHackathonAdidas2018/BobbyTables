@@ -18,28 +18,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beat the Beat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKJ-Dt-9sx">
-                                <rect key="frame" x="136" y="323.5" width="103.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="AoE-Hr-SM4">
+                                <rect key="frame" x="87" y="303.5" width="200" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="9ZB-Iz-4jQ"/>
+                                    <constraint firstAttribute="height" constant="60" id="Jeh-kP-Uue"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.51764705879999995" green="0.98039215690000003" blue="0.69019607839999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="WKJ-Dt-9sx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="CV2-8y-SEl"/>
-                            <constraint firstItem="WKJ-Dt-9sx" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="PdK-c8-rh9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WKJ-Dt-9sx" secondAttribute="trailing" constant="10" id="RyN-q5-bdR"/>
-                            <constraint firstItem="WKJ-Dt-9sx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="WUs-0g-q5A"/>
-                            <constraint firstItem="WKJ-Dt-9sx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="YSb-HN-lvP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WKJ-Dt-9sx" secondAttribute="bottom" constant="10" id="ii3-JC-nyL"/>
+                            <constraint firstItem="AoE-Hr-SM4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="d57-QG-3eX"/>
+                            <constraint firstItem="AoE-Hr-SM4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rEb-iI-WZX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo" width="192" height="113"/>
+    </resources>
 </document>

@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.2)
+  - GradientView (2.3.3)
   - HanekeSwift (1.1)
   - PromiseKit (6.2.8):
     - PromiseKit/CorePromise (= 6.2.8)
@@ -26,6 +27,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7.2)
+  - GradientView (~> 2.3.3)
   - HanekeSwift (from `https://github.com/Haneke/HanekeSwift.git`, tag `v0.11.1`)
   - PromiseKit (~> 6.0)
   - PromiseKit/Alamofire (~> 6.0)
@@ -35,6 +37,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - GradientView
     - PromiseKit
     - ReactiveCocoa
     - ReactiveSwift
@@ -53,6 +56,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  GradientView: b044fa46c24062ee245a07a4e8bea4c5c4d63de0
   HanekeSwift: cb662a1f22b10ff3ff1d7b5030ae451da5d93831
   PromiseKit: 6788ce1a0ed5448b83d4aaf56b9fc49fb7647d32
   ReactiveCocoa: 476dae7ca790f40d30d186a1bd7ebae4290395d5
@@ -60,6 +64,6 @@ SPEC CHECKSUMS:
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   Reusable: 584a5629747c52e0f6a77841b400dc2643f6fa0f
 
-PODFILE CHECKSUM: b195b7d7346674700f028f22eac202168caa301e
+PODFILE CHECKSUM: 8c96b2302fce8e37a3d20a5d774f59cca7595909
 
 COCOAPODS: 1.5.3

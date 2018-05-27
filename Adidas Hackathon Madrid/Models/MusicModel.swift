@@ -13,9 +13,6 @@ import Haneke
 
 /// Base URL to our API.
 private let backendBaseURL: URL = URL(string: "http://52.31.62.57")!
-//private let backendBaseURL: URL = URL(string: "http://10.0.3.23:3000")!
-//private let backendBaseURL: URL = URL(string: "http://172.16.30.91:3000")!
-//private let backendBaseURL: URL = URL(string: "http://10.2.0.1:3000")!
 
 /// A NumberFormatter which prints numbers as integers.
 let integerNumberFormatter: NumberFormatter = {
@@ -45,7 +42,7 @@ public struct SongRequest {
     /// Returns a key for caching this request.
     public var cacheKey: String {
         get {
-            return String(format: "song::%@::--bpm--::%.0f", self.epochStats.bpm)
+            return String(format: "song::%@::--bpm--::%.0f", self.previousSong.name, self.epochStats.bpm)
         }
     }
 }
@@ -160,7 +157,12 @@ struct MusicModel {
     private static let cache = Cache<Song>(name: "requests")
     
     /// Next song to be played.
-    private static var nextSong: Song? = nil
+    private static var nextSong: Song = Song.initialSong
+    
+    /// Whether there's a next song enqueued (`true`) or not.
+    public static var hasNextSong: Bool {
+        return self.nextSong.spotifyURI != Song.initialSong.spotifyURI
+    }
     
     /// Currently played song.
     public static var currentlyPlayingSong: Song? = nil
@@ -194,6 +196,8 @@ struct MusicModel {
     private static let spotifyAuthenticationViewController: UIViewController = {
         let authURL: URL = MusicModel.auth.spotifyWebAuthenticationURL()
         let authViewController = SFSafariViewController(url: authURL)
+        authViewController.preferredBarTintColor = UIColor.ezbeatGreen
+        authViewController.preferredControlTintColor = UIColor.white
         return authViewController
     }()
     
@@ -270,25 +274,18 @@ struct MusicModel {
     // MARK: - Public Playback API
     
     /// Stops playing current song and starts playing next one.
-    public static func playNext() -> Promise<Void> {
-        guard let song = self.nextSong else {
-            return Promise<Void>(error: MusicModelError.noNextSongAvailable)
-        }
-        return self.replaceCurrentlyPlayingSong(with: song)
+    public static func playNext() -> Promise<Song> {
+        return self.replaceCurrentlyPlayingSong(with: self.nextSong)
     }
     
     /// Replaces next song in the queue with given song.
     public static func replaceEnqueuedSong (with newSong: Song) {
-        guard self.currentlyPlayingSong != nil else {
-            _ = self.replaceCurrentlyPlayingSong(with: newSong)
-            return
-        }
         self.nextSong = newSong
     }
     
     /// Replaces currently playing song with given one.
-    public static func replaceCurrentlyPlayingSong (with newSong: Song) -> Promise<Void> {
-        let (promise, resolver) = Promise<Void>.pending()
+    public static func replaceCurrentlyPlayingSong (with newSong: Song) -> Promise<Song> {
+        let (promise, resolver) = Promise<Song>.pending()
         
         print(newSong.spotifyURI)
         
@@ -302,7 +299,7 @@ struct MusicModel {
                 return resolver.reject(error)
             }
             self.currentlyPlayingSong = newSong
-            resolver.fulfill(())
+            resolver.fulfill(newSong)
         }
         
         return promise
@@ -346,6 +343,10 @@ struct MusicModel {
         for epochStats: EpochStats,
         with previousSong: Song
     ) -> Promise<Song> {
+        guard epochStats.bpm > 0 else {
+            return Promise<Song>.value(Song.initialSong)
+        }
+        
         let (promise, resolver) = Promise<Song>.pending()
         let endpointURL = backendBaseURL.appendingPathComponent("/nextSong")
         let songRequestParameter = SongRequest(
@@ -363,7 +364,7 @@ struct MusicModel {
             ).responseJSON().done { data in
                 guard
                     let json = data.json as? NSDictionary,
-                    let uri = json.value(forKey: "SpotifyUrl") as? String,
+                    let id = json.value(forKey: "Id") as? String,
                     let name = json.value(forKey: "Name") as? String,
                     let artworkURL = json.value(forKey: "ImageUrlL") as? String,
                     let artistName = json.value(forKey: "ArtistName") as? String
@@ -372,7 +373,7 @@ struct MusicModel {
                 }
                 
                 let song = Song(
-                    spotifyURI: uri,
+                    spotifyURI: String(format:"spotify:track:%@", id),
                     name: name,
                     artworkURL: artworkURL,
                     artistName: artistName,

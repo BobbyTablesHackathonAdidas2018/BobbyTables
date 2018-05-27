@@ -12,5 +12,6 @@ target 'Adidas Hackathon Madrid' do
   pod 'Alamofire', '~> 4.7.2'
   pod 'PromiseKit/Alamofire', '~> 6.0'
   pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :tag => 'v0.11.1'
+  pod 'GradientView', '~> 2.3.3' 
 
 end

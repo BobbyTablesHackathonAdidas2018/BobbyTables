@@ -23,6 +23,8 @@
 		13BDF0CE20B95C7C0013017F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13BDF0CD20B95C7C0013017F /* Assets.xcassets */; };
 		13BDF0D120B95C7C0013017F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BDF0CF20B95C7C0013017F /* LaunchScreen.storyboard */; };
 		13BDF0DA20B960B40013017F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13BDF0D920B960B40013017F /* HealthKit.framework */; };
+		13CF61DD20BA9FF50050EDE1 /* UIColor+toImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CF61DC20BA9FF50050EDE1 /* UIColor+toImage.swift */; };
+		13CF61DF20BAA0FD0050EDE1 /* UIColor+styleGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CF61DE20BAA0FD0050EDE1 /* UIColor+styleGuide.swift */; };
 		2F668C8720B9B45A003EF2C6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F668C8620B9B45A003EF2C6 /* AVFoundation.framework */; };
 		2F668C8920B9B46A003EF2C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F668C8820B9B46A003EF2C6 /* SystemConfiguration.framework */; };
 		2F668C9120B9BB4D003EF2C6 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F668C8E20B9BB4D003EF2C6 /* SpotifyMetadata.framework */; };
@@ -52,6 +54,8 @@
 		13BDF0D220B95C7C0013017F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13BDF0D820B960B30013017F /* Adidas Hackathon Madrid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Adidas Hackathon Madrid.entitlements"; sourceTree = "<group>"; };
 		13BDF0D920B960B40013017F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		13CF61DC20BA9FF50050EDE1 /* UIColor+toImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+toImage.swift"; sourceTree = "<group>"; };
+		13CF61DE20BAA0FD0050EDE1 /* UIColor+styleGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+styleGuide.swift"; sourceTree = "<group>"; };
 		2F668C8620B9B45A003EF2C6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2F668C8820B9B46A003EF2C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2F668C8A20B9B725003EF2C6 /* Adidas Hackathon Madrid-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Adidas Hackathon Madrid-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				131492BF20B98117000EE678 /* UIApplication+mainWindow.swift */,
+				13CF61DC20BA9FF50050EDE1 /* UIColor+toImage.swift */,
+				13CF61DE20BAA0FD0050EDE1 /* UIColor+styleGuide.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -289,6 +295,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Adidas Hackathon Madrid/Pods-Adidas Hackathon Madrid-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GradientView/GradientView.framework",
 				"${BUILT_PRODUCTS_DIR}/HanekeSwift/Haneke.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
@@ -299,6 +306,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GradientView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Haneke.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
@@ -326,8 +334,10 @@
 				131492D220B9AA28000EE678 /* CoreMotionModelError.swift in Sources */,
 				1386B42720B96B1700F56388 /* HealthModelError.swift in Sources */,
 				13BDF0C520B95C7B0013017F /* AppDelegate.swift in Sources */,
+				13CF61DF20BAA0FD0050EDE1 /* UIColor+styleGuide.swift in Sources */,
 				1386B42920B9772B00F56388 /* PlayerViewController.swift in Sources */,
 				131492C020B98117000EE678 /* UIApplication+mainWindow.swift in Sources */,
+				13CF61DD20BA9FF50050EDE1 /* UIColor+toImage.swift in Sources */,
 				131492CC20B9A2C1000EE678 /* Epoch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

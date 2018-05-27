@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
-    ) -> Bool {    
+    ) -> Bool {
+        application.statusBarStyle = .lightContent
         return true
     }
 
@@ -59,7 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     // MARK: - SPTAudioStreamingDelegate Methods
     
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
-        _ = MusicModel.replaceCurrentlyPlayingSong(with: Song.initialSong)
     }
 
 }

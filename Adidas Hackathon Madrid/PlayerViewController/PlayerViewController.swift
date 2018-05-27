@@ -9,13 +9,19 @@
 import UIKit
 import Reusable
 import ReactiveSwift
+import PromiseKit
 
 typealias Source = CoreMotionModel // Just to make it easier to work with storyboards
 
 /// This VC shows the main UI of the music player
 final class PlayerViewController: UIViewController, StoryboardBased {
+    
     @IBOutlet private weak var stepsLabel: UILabel!
     @IBOutlet private weak var debugLabel: UILabel!
+    @IBOutlet private weak var artworkImageView: UIImageView!
+    @IBOutlet private weak var songTitleLabel: UILabel!
+    @IBOutlet private weak var artistNameLabel: UILabel!
+    @IBOutlet private weak var beginRunButtonLabel: UILabel!
     
     /// Data source feeding this controller with epoch statistics.
     private var source: EpochStatsSource!
@@ -40,10 +46,9 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: Probably we don't want to start music until we start moving but...
-        _ = MusicModel.replaceCurrentlyPlayingSong(with: Song.initialSong)
-        // self.stepsLabel.text = "HOLA MUNDO"
-        // self.reloadEpoch()
+        self.debugLabel.isHidden = true
+        self.songTitleLabel.text = nil
+        self.artistNameLabel.text = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,10 +66,30 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     
     // MARK: - User interaction handlers
     
-    @IBAction private func reloadEpoch () {
+    @IBAction private func playNextSong () {
+        guard MusicModel.currentlyPlayingSong != nil else {
+            // If nothing is being played then we start running
+            _ = MusicModel.replaceCurrentlyPlayingSong(with: Song.initialSong).done { song in
+                self.show(song: song)
+            }
+            return
+        }
+        
         _ = self.source.getCurrentEpochStats().done { epochStats in
             self.handle(newEpochStats: epochStats, forceNewSongReload: true)
         }
+    }
+    
+    /// Shows metadata of given show in UI.
+    /// - parameter song: Song to be displayed.
+    private func show(song: Song) {
+        _ = MusicModel.replaceCurrentlyPlayingSong(with: song)
+        self.songTitleLabel.text = song.name
+        self.artistNameLabel.text = song.artistName
+        self.beginRunButtonLabel.text = NSLocalizedString(
+            "NEXT SONG",
+            comment: "Title of next song button"
+        )
     }
     
     // MARK: - UI Update Methods
@@ -78,15 +103,16 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         newEpochStats epochStats: EpochStats,
         forceNewSongReload: Bool = false
     ) {
+        let bpmFormatter = NumberFormatter()
+        bpmFormatter.minimumIntegerDigits = 1
+        bpmFormatter.minimumFractionDigits = 2
+        bpmFormatter.maximumFractionDigits = 2
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss zzz"
         
         self.debugLabel.text = epochStats.debugInfo
-        self.stepsLabel.text = String(
-            format: "Steps at %@: %.2f",
-            dateFormatter.string(from: epochStats.epoch.end),
-            epochStats.bpm
-        )
+        self.stepsLabel.text = bpmFormatter.string(from: NSNumber(value: epochStats.bpm))
         
         if
             !forceNewSongReload,
@@ -98,16 +124,16 @@ final class PlayerViewController: UIViewController, StoryboardBased {
             remainingDuration > 30 // And there are still more than 30 seconds of song to play...
         {
             // ... then do nothing
-            self.debugLabel.text = "\(epochStats.debugInfo)\n\nIgnoring requested update :)"
+            self.debugLabel.text = "\(dateFormatter.string(from: epochStats.epoch.end)) \(epochStats.debugInfo)\n\nIgnoring requested update :)"
             print("Ignoring requested update")
             return
         }
         
         if (forceNewSongReload) {
-            self.debugLabel.text = "\(epochStats.debugInfo)\n\nForcing new song!"
+            self.debugLabel.text = "\(dateFormatter.string(from: epochStats.epoch.end)) \(epochStats.debugInfo)\n\nForcing new song!"
         }
         
-        // TODO: We should probably check if we should start playing next song
+        self.maybeChangeSong(epochStats: epochStats)
         
         // Otherwise...
         // - if epochs are different
@@ -120,6 +146,62 @@ final class PlayerViewController: UIViewController, StoryboardBased {
             with: MusicModel.currentlyPlayingSong ?? Song.initialSong
         ).done { song in
             MusicModel.replaceEnqueuedSong(with: song)
+        }
+    }
+    
+    /// Check if currently played song should be changed and changes it.
+    /// - parameter triggeringEpoch: stats which triggered this potential update.
+    private func maybeChangeSong (epochStats triggeringEpoch: EpochStats) {
+        
+        let now = Date()
+        let fiveSecondsAgo = now.addingTimeInterval(-5)
+        let tenSecondsAgo = now.addingTimeInterval(-10)
+//        let fifteenSecondsAgo = now.addingTimeInterval(-15)
+        
+        let last5Seconds = Epoch(startingAt: fiveSecondsAgo, endingAt: now)
+        let last10Seconds = Epoch(startingAt: tenSecondsAgo, endingAt: fiveSecondsAgo)
+//        let last15Seconds = Epoch(startingAt: fifteenSecondsAgo, endingAt: tenSecondsAgo)
+        
+        _ = when(fulfilled: [
+            self.source.getStats(epoch: last5Seconds),
+            self.source.getStats(epoch: last10Seconds)//,
+//            self.source.getStats(epoch: last15Seconds)
+        ]).done { results in
+            guard MusicModel.hasNextSong else {
+                print("NOT changing played song because NOTHING WAS ENQUEUED")
+                return
+            }
+            
+            guard let song = MusicModel.currentlyPlayingSong else {
+                print("NOT changing played song because NOTHING WAS BEING PLAYED")
+                return
+            }
+            
+            guard let request = song.request else {
+                print("CHANGING played song because INITIAL SONG was being played")
+                _ = MusicModel.playNext().done { song in
+                    self.show(song: song)
+                }
+                return
+            }
+            
+            var recentEpochsAreSimilar = true
+            for (index, currentEpoch) in results.dropLast().enumerated() {
+                let nextEpoch = results[index + 1]
+                recentEpochsAreSimilar = recentEpochsAreSimilar && currentEpoch ~= nextEpoch
+            }
+            
+            // Otherwise ensure the old epoch if different enough.
+            if request.epochStats ~= triggeringEpoch {
+                print("NOT changing played song because epoch stats didn't change enough")
+                return
+            }
+            
+            print("CHANGING played song because EPOCH CHANGED: \(request.epochStats.bpm) vs \(triggeringEpoch.bpm)")
+            
+            _ = MusicModel.playNext().done { song in
+                self.show(song: song)
+            }
         }
     }
 }
