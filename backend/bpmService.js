@@ -23,6 +23,7 @@ async function getNextSong (bpm, seedSong) {
     returnResolve = resolve
     returnReject = reject
   })
+  memory[getCacheKey(bpm, seedSong)] = returnPromise
   let page, browser
   try {
     browser = await puppeteer.launch({
@@ -49,7 +50,6 @@ async function getNextSong (bpm, seedSong) {
         }
         if (response.request().url().startsWith('http://www.songkeybpm.com/Advanced/AdvancedQuery')) {
           const result = json.TrackItems[0]
-          memory[getCacheKey(bpm, seedSong)] = result
           returnResolve(result)
           if (browser) {
             browser.close()
