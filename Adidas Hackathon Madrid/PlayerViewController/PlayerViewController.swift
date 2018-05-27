@@ -10,6 +10,9 @@ import UIKit
 import Reusable
 import ReactiveSwift
 import PromiseKit
+import AlamofireImage
+import Alamofire
+import GradientView
 
 typealias Source = CoreMotionModel // Just to make it easier to work with storyboards
 
@@ -22,6 +25,7 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     @IBOutlet private weak var songTitleLabel: UILabel!
     @IBOutlet private weak var artistNameLabel: UILabel!
     @IBOutlet private weak var beginRunButtonLabel: UILabel!
+    @IBOutlet private weak var gradientView: GradientView!
     
     /// Data source feeding this controller with epoch statistics.
     private var source: EpochStatsSource!
@@ -46,9 +50,17 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.debugLabel.isHidden = true
         self.songTitleLabel.text = nil
         self.artistNameLabel.text = nil
+
+        self.navigationController?.navigationBar.setBackgroundImage(UIColor.ezbeatBlue.image, for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        self.gradientView.colors = [UIColor.ezbeatBlue, UIColor.ezbeatGreen]
+        self.gradientView.locations = [0.0, 1.0]
+        self.gradientView.direction = .vertical
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +102,12 @@ final class PlayerViewController: UIViewController, StoryboardBased {
             "NEXT SONG",
             comment: "Title of next song button"
         )
+        Alamofire.request(song.artworkURL).responseImage { response in
+            guard let image = response.value, self.songTitleLabel.text == song.name else {
+                return
+            }
+            self.artworkImageView.image = image
+        }
     }
     
     // MARK: - UI Update Methods
@@ -156,16 +174,16 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         let now = Date()
         let fiveSecondsAgo = now.addingTimeInterval(-5)
         let tenSecondsAgo = now.addingTimeInterval(-10)
-//        let fifteenSecondsAgo = now.addingTimeInterval(-15)
+        let fifteenSecondsAgo = now.addingTimeInterval(-15)
         
         let last5Seconds = Epoch(startingAt: fiveSecondsAgo, endingAt: now)
         let last10Seconds = Epoch(startingAt: tenSecondsAgo, endingAt: fiveSecondsAgo)
-//        let last15Seconds = Epoch(startingAt: fifteenSecondsAgo, endingAt: tenSecondsAgo)
+        let last15Seconds = Epoch(startingAt: fifteenSecondsAgo, endingAt: tenSecondsAgo)
         
         _ = when(fulfilled: [
             self.source.getStats(epoch: last5Seconds),
-            self.source.getStats(epoch: last10Seconds)//,
-//            self.source.getStats(epoch: last15Seconds)
+            self.source.getStats(epoch: last10Seconds),
+            self.source.getStats(epoch: last15Seconds)
         ]).done { results in
             guard MusicModel.hasNextSong else {
                 print("NOT changing played song because NOTHING WAS ENQUEUED")
@@ -188,6 +206,7 @@ final class PlayerViewController: UIViewController, StoryboardBased {
             var recentEpochsAreSimilar = true
             for (index, currentEpoch) in results.dropLast().enumerated() {
                 let nextEpoch = results[index + 1]
+                print("Comparing history: \(currentEpoch.bpm) vs \(nextEpoch.bpm) -> \(currentEpoch ~= nextEpoch)")
                 recentEpochsAreSimilar = recentEpochsAreSimilar && currentEpoch ~= nextEpoch
             }
             

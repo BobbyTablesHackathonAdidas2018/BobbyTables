@@ -94,10 +94,10 @@ public class Song: NSObject, NSCoding, DataRepresentable, DataConvertible {
     public static var initialSong: Song {
         get {
             return Song(
-                spotifyURI: "spotify:track:1bdXMstfxFWYSkEFTnJMoN",
-                name: "Enter Sandman",
-                artworkURL: "https://i.scdn.co/image/1e886ca74a1dc17b9a226283b9cc4b765ee25cb8",
-                artistName: "Metallica"
+                spotifyURI: "spotify:track:0dfQ9UVqcr9pGKbKq8l7vl",
+                name: "Machinist",
+                artworkURL: "https://i.scdn.co/image/0a4782b40dfd881d2bac06f3281efdb47ca9b55f",
+                artistName: "CMD/CTRL"
             )
         }
     }
@@ -156,12 +156,15 @@ struct MusicModel {
     /// Cache of previously performed requests.
     private static let cache = Cache<Song>(name: "requests")
     
+    /// Requests that have been already inited and should not be retried.
+    private static var initiedRequests: [String: Promise<Song>] = [:]
+    
     /// Next song to be played.
     private static var nextSong: Song = Song.initialSong
     
     /// Whether there's a next song enqueued (`true`) or not.
     public static var hasNextSong: Bool {
-        return self.nextSong.spotifyURI != Song.initialSong.spotifyURI
+        return self.nextSong.spotifyURI != MusicModel.currentlyPlayingSong?.spotifyURI ?? Song.initialSong.spotifyURI
     }
     
     /// Currently played song.
@@ -347,12 +350,21 @@ struct MusicModel {
             return Promise<Song>.value(Song.initialSong)
         }
         
-        let (promise, resolver) = Promise<Song>.pending()
         let endpointURL = backendBaseURL.appendingPathComponent("/nextSong")
         let songRequestParameter = SongRequest(
             epochStats: epochStats,
             previousSong: previousSong
         )
+        
+        if let promise = self.initiedRequests[songRequestParameter.cacheKey] {
+            return promise
+        }
+        
+        let (promise, resolver) = Promise<Song>.pending()
+        
+        self.initiedRequests[songRequestParameter.cacheKey] = promise
+        
+        print("Querying for \(epochStats.bpm) and \(previousSong.artistName)")
         
         self.cache.fetch(key: songRequestParameter.cacheKey).onSuccess { cachedSong in
             resolver.fulfill(cachedSong.with(request: songRequestParameter))
@@ -362,6 +374,7 @@ struct MusicModel {
                 method: .get,
                 parameters: songRequestParameter.parameters
             ).responseJSON().done { data in
+                print("Got info!!")
                 guard
                     let json = data.json as? NSDictionary,
                     let id = json.value(forKey: "Id") as? String,
@@ -384,6 +397,7 @@ struct MusicModel {
                 
                 resolver.fulfill(song)
             }.catch { error in
+                print(error)
                 resolver.reject(error)
             }
         }

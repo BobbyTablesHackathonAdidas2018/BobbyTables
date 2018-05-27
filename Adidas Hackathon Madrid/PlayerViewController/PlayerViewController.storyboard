@@ -19,6 +19,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W79-aM-FCe" customClass="GradientView" customModule="GradientView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FD0-sA-74s">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
@@ -41,13 +45,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLj-Ol-v7Z">
-                                        <rect key="frame" x="0.0" y="155" width="375" height="327"/>
+                                        <rect key="frame" x="0.0" y="155" width="375" height="328"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="56V-ut-GB4">
-                                                <rect key="frame" x="10" y="0.0" width="355" height="327"/>
+                                                <rect key="frame" x="10" y="0.0" width="355" height="328"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="56V-ut-GB4" firstAttribute="leading" secondItem="vLj-Ol-v7Z" secondAttribute="leading" constant="10" id="Gea-ob-1yO"/>
                                             <constraint firstItem="56V-ut-GB4" firstAttribute="top" secondItem="vLj-Ol-v7Z" secondAttribute="top" id="J9h-dC-Sep"/>
@@ -56,14 +60,14 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SONG TITLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y88-Tp-DRZ">
-                                        <rect key="frame" x="0.0" y="492" width="375" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="493" width="375" height="20.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ARTIST NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0M1-if-Qt1">
-                                        <rect key="frame" x="0.0" y="522.5" width="375" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="523.5" width="375" height="19.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -116,8 +120,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FD0-sA-74s" firstAttribute="top" secondItem="ti8-T6-eQk" secondAttribute="top" id="5kk-mi-CfE"/>
+                            <constraint firstItem="W79-aM-FCe" firstAttribute="leading" secondItem="FD0-sA-74s" secondAttribute="leading" id="6ph-zq-gnz"/>
+                            <constraint firstItem="W79-aM-FCe" firstAttribute="trailing" secondItem="FD0-sA-74s" secondAttribute="trailing" id="IbX-2d-g0e"/>
                             <constraint firstItem="ti8-T6-eQk" firstAttribute="trailing" secondItem="FD0-sA-74s" secondAttribute="trailing" id="Ma1-or-9QV"/>
                             <constraint firstItem="ti8-T6-eQk" firstAttribute="bottom" secondItem="FD0-sA-74s" secondAttribute="bottom" id="eYP-lz-Ksx"/>
+                            <constraint firstItem="W79-aM-FCe" firstAttribute="bottom" secondItem="FD0-sA-74s" secondAttribute="bottom" id="ji9-wX-F01"/>
+                            <constraint firstItem="W79-aM-FCe" firstAttribute="top" secondItem="FD0-sA-74s" secondAttribute="top" id="s19-Bn-xFz"/>
                             <constraint firstItem="FD0-sA-74s" firstAttribute="leading" secondItem="ti8-T6-eQk" secondAttribute="leading" id="zOc-l6-co7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ti8-T6-eQk"/>
@@ -149,6 +157,7 @@
                         <outlet property="artworkImageView" destination="56V-ut-GB4" id="HG4-Sn-PeA"/>
                         <outlet property="beginRunButtonLabel" destination="2xr-E1-qtO" id="Lml-uB-kj6"/>
                         <outlet property="debugLabel" destination="ruA-aX-IsR" id="KK1-nd-9w0"/>
+                        <outlet property="gradientView" destination="W79-aM-FCe" id="We0-Ba-0gF"/>
                         <outlet property="songTitleLabel" destination="y88-Tp-DRZ" id="Zzn-Nm-zJz"/>
                         <outlet property="stepsLabel" destination="Kmj-hs-Jfc" id="lYR-Uf-BNL"/>
                         <outlet property="view" destination="WC0-gt-tG1" id="EzJ-YH-Z04"/>
@@ -156,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5l-95-6MP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="826.39999999999998" y="14.842578710644679"/>
+            <point key="canvasLocation" x="826" y="41"/>
         </scene>
     </scenes>
     <resources>
