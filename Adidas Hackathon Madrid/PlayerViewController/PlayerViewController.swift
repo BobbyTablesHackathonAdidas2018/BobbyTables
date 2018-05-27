@@ -63,7 +63,7 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     
     @IBAction private func reloadEpoch () {
         _ = self.source.getCurrentEpochStats().done { epochStats in
-            self.handle(newEpochStats: epochStats)
+            self.handle(newEpochStats: epochStats, forceNewSongReload: true)
         }
     }
     
@@ -72,7 +72,12 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     /// Handles an incoming epochStats, updating UI to reflect current data and
     /// recomputing next queued song if required.
     /// - parameter epochStats: Stats to be handled.
-    private func handle(newEpochStats epochStats: EpochStats) {
+    /// - parameter forceNewSongReload: Pass `true` to force getting a new song
+    /// regardless delta with respect to previous epoch.
+    private func handle(
+        newEpochStats epochStats: EpochStats,
+        forceNewSongReload: Bool = false
+    ) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss zzz"
         
@@ -84,17 +89,22 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         )
         
         if
+            !forceNewSongReload,
             let currentSong = MusicModel.currentlyPlayingSong,
-            let request = currentSong.request,
-            request.epochStats ~= epochStats, // If epochs are similar...
+            (currentSong.request?.epochStats ?? EpochStats.defaultStats) ~= epochStats, // If epochs are similar...
             let remainingPercent = MusicModel.currentlyPlayedSongRemainingPercent,
             remainingPercent > 0.15, // And there's still more than 15% of the song to play...
             let remainingDuration = MusicModel.currentlyPlayedSongRemainingDuration,
             remainingDuration > 30 // And there are still more than 30 seconds of song to play...
         {
             // ... then do nothing
+            self.debugLabel.text = "\(epochStats.debugInfo)\n\nIgnoring requested update :)"
             print("Ignoring requested update")
             return
+        }
+        
+        if (forceNewSongReload) {
+            self.debugLabel.text = "\(epochStats.debugInfo)\n\nForcing new song!"
         }
         
         // TODO: We should probably check if we should start playing next song

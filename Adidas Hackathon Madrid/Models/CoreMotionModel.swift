@@ -69,7 +69,7 @@ public struct CoreMotionModel: EpochStatsSource {
             debugInfo = "Using number of steps"
         }
         
-        return (bpm: bps * 60, debugInfo: debugInfo, epoch: epoch)
+        return EpochStats(bpm: bps * 60, epoch: epoch, debugInfo: debugInfo)
     }
     
     // MARK: - Public

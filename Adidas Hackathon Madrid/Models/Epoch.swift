@@ -60,11 +60,20 @@ public struct Epoch {
 }
 
 /// Statistics on a single epoch.
-public typealias EpochStats = (
-    bpm: Double,
-    epoch: Epoch,
-    debugInfo: String
-)
+public struct EpochStats {
+    /// Beats per minute.
+    public let bpm: Double
+    /// Epoch.
+    public let epoch: Epoch
+    /// Debug information.
+    public let debugInfo: String
+    /// Default EpochStats.
+    public static var defaultStats: EpochStats {
+        get {
+            return EpochStats(bpm: 0, epoch: Epoch.current, debugInfo: "")
+        }
+    }
+}
 
 /// Returns whether two EpochStats are similar or not.
 /// - parameter lhs: Left hand side epoch to compare.
@@ -72,6 +81,9 @@ public typealias EpochStats = (
 /// - returns: `true` is both epochs are really similar.
 public func ~=(lhs: EpochStats, rhs: EpochStats) -> Bool {
     let maxBpm = max(lhs.bpm, rhs.bpm)
+    guard maxBpm > 0 else {
+        return true
+    }
     let diffBpm = abs(lhs.bpm - rhs.bpm)
     return diffBpm / maxBpm < 0.1
 }

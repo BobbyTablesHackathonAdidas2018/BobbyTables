@@ -105,7 +105,9 @@ public struct HealthModel: EpochStatsSource {
     private func getEpochStats (epoch: Epoch) -> Promise<EpochStats> {
         return self.getSteps(epoch: epoch).then { stepCount in
             // TODO: Compute BPM instead of returning just step count
-            return Promise<EpochStats>.value((bpm: Double(stepCount), epoch: epoch, debugInfo: "HealthKit"))
+            return Promise<EpochStats>.value(
+                EpochStats(bpm: Double(stepCount), epoch: epoch, debugInfo: "HealthKit")
+            )
         }
     }
     
@@ -167,8 +169,11 @@ public struct HealthModel: EpochStatsSource {
 
     public func getStats(epoch: Epoch) -> Promise<EpochStats> {
         return self.getSteps(epoch: epoch).map { steps in
-            let epochStats: EpochStats = (bpm: Double(steps), epoch: epoch, debugInfo: "HealthKit")
-            return epochStats
+            return EpochStats(
+                bpm: Double(steps),
+                epoch: epoch,
+                debugInfo: "HealthKit"
+            )
         }
     }
 }

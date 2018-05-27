@@ -13,7 +13,9 @@ import Haneke
 
 /// Base URL to our API.
 //private let backendBaseURL: URL = URL(string: "http://52.31.62.57")!
-private let backendBaseURL: URL = URL(string: "http://10.0.3.23:3000")!
+//private let backendBaseURL: URL = URL(string: "http://10.0.3.23:3000")!
+//private let backendBaseURL: URL = URL(string: "http://172.16.30.91:3000")!
+private let backendBaseURL: URL = URL(string: "http://10.2.0.1:3000")!
 
 /// A NumberFormatter which prints numbers as integers.
 let integerNumberFormatter: NumberFormatter = {
@@ -162,6 +164,8 @@ struct MusicModel {
     private static let player: SPTAudioStreamingController = {
         let player: SPTAudioStreamingController! = SPTAudioStreamingController.sharedInstance()
         player.delegate = UIApplication.shared.delegate as! AppDelegate
+        try! player.start(withClientId: MusicModel.auth.clientID)
+        player.delegate = UIApplication.shared.delegate as? AppDelegate
         return player
     }()
     
@@ -197,9 +201,7 @@ struct MusicModel {
         
         return Promise<Void>() { resolver in
             // Otherwise we can just use it...
-            try self.player.start(withClientId: self.auth.clientID)
             self.player.login(withAccessToken: self.auth.session.accessToken)
-            self.player.delegate = UIApplication.shared.delegate as? AppDelegate
             resolver.fulfill(())
         }
     }
@@ -231,14 +233,8 @@ struct MusicModel {
                 return resolver.reject(MusicModelError.unexpectedSpotifySessionValidation)
             }
             
-            do {
-                try self.player.start(withClientId: self.auth.clientID)
-                self.player.login(withAccessToken: session.accessToken)
-                self.player.delegate = UIApplication.shared.delegate as? AppDelegate
-                resolver.fulfill(())
-            } catch let error {
-                return resolver.reject(error)
-            }
+            self.player.login(withAccessToken: session.accessToken)
+            resolver.fulfill(())
         }
         
         _ = promise.done {
@@ -262,6 +258,10 @@ struct MusicModel {
     
     /// Replaces next song in the queue with given song.
     public static func replaceEnqueuedSong (with newSong: Song) {
+        guard self.currentlyPlayingSong != nil else {
+            _ = self.replaceCurrentlyPlayingSong(with: newSong)
+            return
+        }
         self.nextSong = newSong
     }
     
@@ -291,10 +291,13 @@ struct MusicModel {
     /// Will be `nil` if currently nothing is being played.
     public static var currentlyPlayedSongRemainingDuration: TimeInterval? {
         get {
-            guard self.player.metadata.currentTrack != nil else {
+            guard
+                let duration = self.player.metadata.currentTrack?.duration,
+                duration > 0
+            else {
                 return nil
             }
-            return self.player.playbackState.position
+            return duration - self.player.playbackState.position
         }
     }
     
@@ -309,7 +312,7 @@ struct MusicModel {
             else {
                 return nil
             }
-            return self.player.playbackState.position / duration
+            return 1 - self.player.playbackState.position / duration
         }
     }
     
@@ -318,7 +321,10 @@ struct MusicModel {
     /// Gets the proper song for given EpochStats.
     /// - parameter epochStats: Statistics of epoch considered for the song.
     /// - returns: Promise that will be resolved with the song to play next.
-    public static func getSong(for epochStats: EpochStats, with previousSong: Song) -> Promise<Song> {
+    public static func getSong(
+        for epochStats: EpochStats,
+        with previousSong: Song
+    ) -> Promise<Song> {
         let (promise, resolver) = Promise<Song>.pending()
         let endpointURL = backendBaseURL.appendingPathComponent("/nextSong")
         let songRequestParameter = SongRequest(
@@ -353,6 +359,8 @@ struct MusicModel {
                 self.cache.set(value: song, key: songRequestParameter.cacheKey)
                 
                 resolver.fulfill(song)
+            }.catch { error in
+                resolver.reject(error)
             }
         }
         

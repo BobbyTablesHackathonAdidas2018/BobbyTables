@@ -59,12 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     // MARK: - SPTAudioStreamingDelegate Methods
     
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
-        let spotifySong = Song(
-            spotifyURI: "spotify:track:53Kf1deIW8fcRaulTzQTRO",
-            name: "???",
-            artworkURL: ""
-        )
-        _ = MusicModel.replaceCurrentlyPlayingSong(with: spotifySong)
+        _ = MusicModel.replaceCurrentlyPlayingSong(with: Song.initialSong)
     }
 
 }
