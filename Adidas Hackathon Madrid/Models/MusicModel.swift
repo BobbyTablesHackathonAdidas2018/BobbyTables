@@ -167,6 +167,9 @@ struct MusicModel {
         return self.nextSong.spotifyURI != MusicModel.currentlyPlayingSong?.spotifyURI ?? Song.initialSong.spotifyURI
     }
     
+    /// Last date when song was updated.
+    private static var lastSongUpdateTime: Date = Date()
+    
     /// Currently played song.
     public static var currentlyPlayingSong: Song? = nil
     
@@ -291,6 +294,16 @@ struct MusicModel {
         let (promise, resolver) = Promise<Song>.pending()
         
         print(newSong.spotifyURI)
+        
+        guard
+            self.currentlyPlayingSong == nil ||
+            Date().timeIntervalSince(self.lastSongUpdateTime) > 5
+        else {
+            print("NOT UPDATING SONG BECAUSE WE UPDATED IT TOO SOON!")
+            return Promise<Song>(error: MusicModelError.askedToPlayTooSoon)
+        }
+        
+        self.lastSongUpdateTime = Date()
         
         self.player.playSpotifyURI(
             newSong.spotifyURI,

@@ -18,7 +18,7 @@ class EntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.setBackgroundImage(UIColor.ezbeatGreen.image, for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIColor.ezbeatBlue.image, for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         self.gradientView.colors = [UIColor.ezbeatBlue, UIColor.ezbeatGreen]

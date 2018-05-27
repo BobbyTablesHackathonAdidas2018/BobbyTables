@@ -12,8 +12,12 @@ import Foundation
 /// - `unhandlableAuthenticationCallbackURL`: given callback's URL is not valid.
 /// - `unexpectedSpotifySessionValidation`: unexpected error when validating Spotify session.
 /// - `unparseableBackendResponse`: backend returned a non-parseable object.
+/// - `alreadyQueryingBackend`: backend is already being queried.
+/// - `askedToPlayTooSoon`: API was asked to play a new song too soon.
 enum MusicModelError: Error {
     case unhandlableAuthenticationCallbackURL
     case unexpectedSpotifySessionValidation
     case unparseableBackendResponse
+    case alreadyQueryingBackend
+    case askedToPlayTooSoon
 }

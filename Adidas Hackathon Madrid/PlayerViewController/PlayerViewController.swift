@@ -27,6 +27,15 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     @IBOutlet private weak var beginRunButtonLabel: UILabel!
     @IBOutlet private weak var gradientView: GradientView!
     
+    /// Number formatter for bpm.
+    private let bpmFormatter: NumberFormatter = {
+        let bpmFormatter = NumberFormatter()
+        bpmFormatter.minimumIntegerDigits = 1
+        bpmFormatter.minimumFractionDigits = 2
+        bpmFormatter.maximumFractionDigits = 2
+        return bpmFormatter
+    }()
+    
     /// Data source feeding this controller with epoch statistics.
     private var source: EpochStatsSource!
     /// Disposable listening to new events emitted by the data source.
@@ -51,6 +60,7 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.stepsLabel.text = self.bpmFormatter.string(from: NSNumber(value: 0))
         self.debugLabel.isHidden = true
         self.songTitleLabel.text = nil
         self.artistNameLabel.text = nil
@@ -121,11 +131,6 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         newEpochStats epochStats: EpochStats,
         forceNewSongReload: Bool = false
     ) {
-        let bpmFormatter = NumberFormatter()
-        bpmFormatter.minimumIntegerDigits = 1
-        bpmFormatter.minimumFractionDigits = 2
-        bpmFormatter.maximumFractionDigits = 2
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss zzz"
         
@@ -149,9 +154,12 @@ final class PlayerViewController: UIViewController, StoryboardBased {
         
         if (forceNewSongReload) {
             self.debugLabel.text = "\(dateFormatter.string(from: epochStats.epoch.end)) \(epochStats.debugInfo)\n\nForcing new song!"
+            _ = MusicModel.playNext().done { song in
+                self.show(song: song)
+            }
+        } else {
+            self.maybeChangeSong(epochStats: epochStats)
         }
-        
-        self.maybeChangeSong(epochStats: epochStats)
         
         // Otherwise...
         // - if epochs are different
