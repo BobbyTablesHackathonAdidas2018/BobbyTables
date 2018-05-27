@@ -41,6 +41,9 @@ final class PlayerViewController: UIViewController, StoryboardBased {
     /// Disposable listening to new events emitted by the data source.
     private var epochStatsDisposable: Disposable!
     
+    /// ID used to ensure we don't have race conditions.
+    private var lastSongToBePlayedID: Int = 0
+    
     // MARK: -
     
     /// Returns a new instance properly initialized to get data from given source.
@@ -152,26 +155,35 @@ final class PlayerViewController: UIViewController, StoryboardBased {
             return
         }
         
-        if (forceNewSongReload) {
-            self.debugLabel.text = "\(dateFormatter.string(from: epochStats.epoch.end)) \(epochStats.debugInfo)\n\nForcing new song!"
-            _ = MusicModel.playNext().done { song in
-                self.show(song: song)
-            }
-        } else {
-            self.maybeChangeSong(epochStats: epochStats)
-        }
-        
         // Otherwise...
         // - if epochs are different
         // - or... there's less than 15% of the song to play
         // - or... there are less than 30 seconds of song remaining
         // ... get a new song and play it
         
+        self.lastSongToBePlayedID += 1
+        let id = self.lastSongToBePlayedID
+        
         _ = MusicModel.getSong(
             for: epochStats,
             with: MusicModel.currentlyPlayingSong ?? Song.initialSong
         ).done { song in
+            
+            guard id == self.lastSongToBePlayedID else {
+                print("IGNORING PREVIOUS RESPONSE")
+                return
+            }
             MusicModel.replaceEnqueuedSong(with: song)
+            
+            if (forceNewSongReload) {
+                self.debugLabel.text = "\(dateFormatter.string(from: epochStats.epoch.end)) \(epochStats.debugInfo)\n\nForcing new song!"
+                _ = MusicModel.playNext().done { song in
+                    self.show(song: song)
+                }
+            } else {
+                self.maybeChangeSong(epochStats: epochStats)
+            }
+            
         }
     }
     
@@ -216,6 +228,11 @@ final class PlayerViewController: UIViewController, StoryboardBased {
                 let nextEpoch = results[index + 1]
                 print("Comparing history: \(currentEpoch.bpm) vs \(nextEpoch.bpm) -> \(currentEpoch ~= nextEpoch)")
                 recentEpochsAreSimilar = recentEpochsAreSimilar && currentEpoch ~= nextEpoch
+            }
+            
+            if !recentEpochsAreSimilar {
+                print("NOT changing because WE ARE IN PROCESS")
+                return
             }
             
             // Otherwise ensure the old epoch if different enough.

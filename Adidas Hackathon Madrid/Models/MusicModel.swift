@@ -94,9 +94,9 @@ public class Song: NSObject, NSCoding, DataRepresentable, DataConvertible {
     public static var initialSong: Song {
         get {
             return Song(
-                spotifyURI: "spotify:track:0dfQ9UVqcr9pGKbKq8l7vl",
-                name: "Machinist",
-                artworkURL: "https://i.scdn.co/image/0a4782b40dfd881d2bac06f3281efdb47ca9b55f",
+                spotifyURI: "spotify:track:0nj2MZ1FKbgxTHxdLuK66S",
+                name: "I Wanna Take You Out",
+                artworkURL: "https://i.scdn.co/image/c0fa3ee6f34b20d536e890a74bd97a136443f629",
                 artistName: "CMD/CTRL"
             )
         }

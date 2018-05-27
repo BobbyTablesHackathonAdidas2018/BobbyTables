@@ -85,7 +85,7 @@ public func ~=(lhs: EpochStats, rhs: EpochStats) -> Bool {
         return true
     }
     let diffBpm = abs(lhs.bpm - rhs.bpm)
-    return diffBpm / maxBpm < 0.1
+    return diffBpm / maxBpm < 0.15
 }
 
 /// A tuple of HealthModel and a Signal with epoch stats.
